@@ -52,7 +52,7 @@ exports.updateSetup = async (req, res) => {
         message: 'Setup not found!'
       });
     }
-    setup = body
+    setup = body;
 
     setup
       .save()
@@ -87,23 +87,39 @@ exports.deleteSetup = async (req, res) => {
 };
 
 exports.getSetupById = async (req, res) => {
-  await Setup.findOne({ _id: req.params.id }, (err, setup) => {
-    if (err) {
-      return res.status(400).json({ success: false, error: err });
-    }
+  const query = { _id: req.params.id };
 
-    return res.status(200).json({ success: true, data: setup });
-  }).catch(err => console.log(err));
+  await Setup.findById(query)
+    .populate('car')
+    .populate('game')
+    .populate('track')
+    .populate('driver')
+    .exec((err, setup) => {
+      if (err) {
+        return res.status(400).json({ success: false, error: err });
+      }
+
+      return res.status(200).json({ success: true, data: setup });
+    })
+    .catch(err => console.log(err));
 };
 
 exports.getSetups = async (req, res) => {
-  await Setup.find({}, (err, setups) => {
-    if (err) {
-      return res.status(400).json({ success: false, error: err });
-    }
-    if (!setups.length) {
-      return res.status(404).json({ success: false, error: `Setups not found` });
-    }
-    return res.status(200).json({ success: true, data: setups });
-  }).catch(err => console.log(err));
+  await Setup.find({})
+    .populate('car')
+    .populate('game')
+    .populate('track')
+    .populate('driver')
+    .exec((err, setups) => {
+      if (err) {
+        return res.status(400).json({ success: false, error: err });
+      }
+      if (!setups.length) {
+        return res
+          .status(404)
+          .json({ success: false, error: `Setups not found` });
+      }
+      return res.status(200).json({ success: true, data: setups });
+    })
+    .catch(err => console.log(err));
 };
