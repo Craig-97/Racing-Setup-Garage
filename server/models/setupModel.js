@@ -28,7 +28,13 @@ const Setup = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'Driver',
       required: 'Driver ID (driver) required'
-    }
+    },
+    downloadURL: {
+      type: String,
+    },
+    description: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

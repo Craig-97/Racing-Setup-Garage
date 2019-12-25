@@ -12,6 +12,9 @@ const Game = new Schema(
     platform: {
       type: String,
       enum: ['Xbox', 'Playstation', 'PC', 'Other']
+    },
+    imageURL: {
+      type: String,
     }
   },
   { timestamps: true }
