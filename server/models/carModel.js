@@ -20,6 +20,9 @@ const Car = new Schema(
     },
     category: {
       type: String
+    },
+    imageURL: {
+      type: String,
     }
   },
   { timestamps: true }
