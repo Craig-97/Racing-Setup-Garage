@@ -53,6 +53,7 @@ exports.updateTrack = async (req, res) => {
       });
     }
     track = Object.assign(track, body)
+    track.__v = track.__v + 1;
 
     track
       .save()

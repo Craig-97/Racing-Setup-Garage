@@ -54,8 +54,7 @@ exports.updateGame = async (req, res) => {
     }
 
     game = Object.assign(game, body)
-
-    console.log(game)
+    game.__v = game.__v + 1;
 
     game
       .save()

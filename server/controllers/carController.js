@@ -53,6 +53,7 @@ exports.updateCar = async (req, res) => {
       });
     }
     car = Object.assign(car, body)
+    car.__v = car.__v + 1;
 
     car
       .save()

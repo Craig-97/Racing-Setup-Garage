@@ -53,6 +53,7 @@ exports.updateDriver = async (req, res) => {
       });
     }
     driver = Object.assign(driver, body)
+    driver.__v = driver.__v + 1;
 
     driver
       .save()

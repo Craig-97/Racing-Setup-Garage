@@ -53,6 +53,7 @@ exports.updateSetup = async (req, res) => {
       });
     }
     setup = Object.assign(setup, body)
+    setup.__v = setup.__v + 1;
 
     setup
       .save()
