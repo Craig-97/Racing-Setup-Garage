@@ -23,8 +23,8 @@ exports.createSetup = (req, res) => {
     .then(() => {
       return res.status(201).json({
         success: true,
-        id: setup._id,
-        message: 'Setup created!'
+        message: 'Setup created!',
+        setup
       });
     })
     .catch(error => {
@@ -52,15 +52,15 @@ exports.updateSetup = async (req, res) => {
         message: 'Setup not found!'
       });
     }
-    setup = body;
+    setup = Object.assign(setup, body)
 
     setup
       .save()
       .then(() => {
         return res.status(200).json({
           success: true,
-          id: setup._id,
-          message: 'Setup updated!'
+          message: 'Setup updated!',
+          setup
         });
       })
       .catch(error => {

@@ -23,8 +23,8 @@ exports.createTrack = (req, res) => {
     .then(() => {
       return res.status(201).json({
         success: true,
-        id: track._id,
-        message: 'Track created!'
+        message: 'Track created!',
+        track
       });
     })
     .catch(error => {
@@ -52,15 +52,15 @@ exports.updateTrack = async (req, res) => {
         message: 'Track not found!'
       });
     }
-    track = body
+    track = Object.assign(track, body)
 
     track
       .save()
       .then(() => {
         return res.status(200).json({
           success: true,
-          id: track._id,
-          message: 'Track updated!'
+          message: 'Track updated!',
+          track
         });
       })
       .catch(error => {

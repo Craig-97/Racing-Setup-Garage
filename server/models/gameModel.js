@@ -10,11 +10,17 @@ const Game = new Schema(
       required: 'Game name (name) required'
     },
     platform: {
-      type: String,
+      type: [String],
       enum: ['Xbox', 'Playstation', 'PC', 'Other']
     },
     imageURL: {
       type: String,
+    },
+    developer: {
+      type: String,
+    },
+    releaseDate: {
+      type: Date,
     }
   },
   { timestamps: true }

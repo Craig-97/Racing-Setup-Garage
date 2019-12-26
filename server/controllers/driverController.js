@@ -23,8 +23,8 @@ exports.createDriver = (req, res) => {
     .then(() => {
       return res.status(201).json({
         success: true,
-        id: driver._id,
-        message: 'Driver created!'
+        message: 'Driver created!',
+        driver
       });
     })
     .catch(error => {
@@ -52,15 +52,15 @@ exports.updateDriver = async (req, res) => {
         message: 'Driver not found!'
       });
     }
-    driver = body;
+    driver = Object.assign(driver, body)
 
     driver
       .save()
       .then(() => {
         return res.status(200).json({
           success: true,
-          id: driver._id,
-          message: 'Driver updated!'
+          message: 'Driver updated!',
+          driver
         });
       })
       .catch(error => {
