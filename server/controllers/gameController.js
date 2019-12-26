@@ -23,8 +23,8 @@ exports.createGame = (req, res) => {
     .then(() => {
       return res.status(201).json({
         success: true,
-        id: game._id,
-        message: 'Game created!'
+        message: 'Game created!',
+        game
       });
     })
     .catch(error => {
@@ -52,15 +52,17 @@ exports.updateGame = async (req, res) => {
         message: 'Game not found!'
       });
     }
-    game = body;
+
+    game = Object.assign(game, body)
+    game.__v = game.__v + 1;
 
     game
       .save()
       .then(() => {
         return res.status(200).json({
           success: true,
-          id: game._id,
-          message: 'Game updated!'
+          message: 'Game updated!',
+          game
         });
       })
       .catch(error => {

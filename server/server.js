@@ -5,7 +5,7 @@ const cors = require('cors');
 const mongoose = require('./db/mongoose');
 
 const app = express();
-const apiPort = process.env.PORT || 3000;
+const apiPort = process.env.PORT || 4000;
 
 // app wide middleware
 app.use(bodyParser.urlencoded({ extended: true }));

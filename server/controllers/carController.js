@@ -23,8 +23,8 @@ exports.createCar = (req, res) => {
     .then(() => {
       return res.status(201).json({
         success: true,
-        id: car._id,
-        message: 'Car created!'
+        message: 'Car created!',
+        car
       });
     })
     .catch(error => {
@@ -52,15 +52,16 @@ exports.updateCar = async (req, res) => {
         message: 'Car not found!'
       });
     }
-    car = body;
+    car = Object.assign(car, body)
+    car.__v = car.__v + 1;
 
     car
       .save()
       .then(() => {
         return res.status(200).json({
           success: true,
-          id: car._id,
-          message: 'Car updated!'
+          message: 'Car updated!',
+          car
         });
       })
       .catch(error => {
