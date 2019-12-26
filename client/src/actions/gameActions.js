@@ -5,7 +5,6 @@ import { returnErrors } from './errorActions';
 const API_BASE = 'http://localhost:4000/api';
 
 export const getGames = () => dispatch => {
-
   dispatch(setGamesLoading());
   axios
     .get(`${API_BASE}/games`)
@@ -20,7 +19,7 @@ export const getGames = () => dispatch => {
     );
 };
 
-export const addGame = game => (dispatch) => {
+export const addGame = game => dispatch => {
   axios
     .post(`${API_BASE}/games`, game)
     .then(res =>
@@ -34,7 +33,7 @@ export const addGame = game => (dispatch) => {
     );
 };
 
-export const deleteGame = id => (dispatch) => {
+export const deleteGame = id => dispatch => {
   axios
     .delete(`${API_BASE}/games/${id}`)
     .then(res =>

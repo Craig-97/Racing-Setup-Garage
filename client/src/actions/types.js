@@ -1,4 +1,3 @@
-
 //GAMES
 export const GET_GAMES = 'GET_GAMES';
 export const ADD_GAME = 'ADD_GAME';
