@@ -53,7 +53,7 @@ exports.updateGame = async (req, res) => {
       });
     }
 
-    game = Object.assign(game, body)
+    game = Object.assign(game, body);
     game.__v = game.__v + 1;
 
     game
@@ -89,23 +89,31 @@ exports.deleteGame = async (req, res) => {
 };
 
 exports.getGameById = async (req, res) => {
-  await Game.findOne({ _id: req.params.id }, (err, game) => {
-    if (err) {
-      return res.status(400).json({ success: false, error: err });
-    }
+  await Game.findOne({ _id: req.params.id })
+    .populate(['cars'])
+    .exec((err, game) => {
+      if (err) {
+        console.log(err);
+        return res.status(400).json({ success: false, error: err });
+      }
 
-    return res.status(200).json({ success: true, data: game });
-  }).catch(err => console.log(err));
+      return res.status(200).json({ success: true, data: game });
+    });
 };
 
 exports.getGames = async (req, res) => {
-  await Game.find({}, (err, games) => {
-    if (err) {
-      return res.status(400).json({ success: false, error: err });
-    }
-    if (!games.length) {
-      return res.status(404).json({ success: false, error: `Games not found` });
-    }
-    return res.status(200).json({ success: true, data: games });
-  }).catch(err => console.log(err));
+  await Game.find({})
+    .populate(['cars'])
+    .exec((err, games) => {
+      if (err) {
+        console.log(err);
+        return res.status(400).json({ success: false, error: err });
+      }
+      if (!games.length) {
+        return res
+          .status(404)
+          .json({ success: false, error: `Games not found` });
+      }
+      return res.status(200).json({ success: true, data: games });
+    });
 };

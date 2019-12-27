@@ -52,7 +52,7 @@ exports.updateSetup = async (req, res) => {
         message: 'Setup not found!'
       });
     }
-    setup = Object.assign(setup, body)
+    setup = Object.assign(setup, body);
     setup.__v = setup.__v + 1;
 
     setup
@@ -97,12 +97,12 @@ exports.getSetupById = async (req, res) => {
     .populate('driver')
     .exec((err, setup) => {
       if (err) {
+        console.log(err);
         return res.status(400).json({ success: false, error: err });
       }
 
       return res.status(200).json({ success: true, data: setup });
-    })
-    .catch(err => console.log(err));
+    });
 };
 
 exports.getSetups = async (req, res) => {
@@ -113,6 +113,7 @@ exports.getSetups = async (req, res) => {
     .populate('driver')
     .exec((err, setups) => {
       if (err) {
+        console.log(err);
         return res.status(400).json({ success: false, error: err });
       }
       if (!setups.length) {
@@ -121,6 +122,5 @@ exports.getSetups = async (req, res) => {
           .json({ success: false, error: `Setups not found` });
       }
       return res.status(200).json({ success: true, data: setups });
-    })
-    .catch(err => console.log(err));
+    });
 };
