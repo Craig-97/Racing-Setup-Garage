@@ -84,7 +84,7 @@ exports.deleteGame = async (req, res) => {
       return res.status(404).json({ success: false, error: `Game not found` });
     }
 
-    return res.status(200).json({ success: true, data: game });
+    return res.status(200).json({ success: true, game: game });
   }).catch(err => console.log(err));
 };
 
@@ -97,7 +97,7 @@ exports.getGameById = async (req, res) => {
         return res.status(400).json({ success: false, error: err });
       }
 
-      return res.status(200).json({ success: true, data: game });
+      return res.status(200).json({ success: true, game: game });
     });
 };
 
@@ -114,6 +114,6 @@ exports.getGames = async (req, res) => {
           .status(404)
           .json({ success: false, error: `Games not found` });
       }
-      return res.status(200).json({ success: true, data: games });
+      return res.status(200).json({ success: true, games: games });
     });
 };

@@ -103,7 +103,7 @@ exports.deleteCar = async (req, res) => {
       });
     }
 
-    return res.status(200).json({ success: true, data: car });
+    return res.status(200).json({ success: true, car: car });
   }).catch(err => console.log(err));
 };
 
@@ -116,7 +116,7 @@ exports.getCarById = async (req, res) => {
         return res.status(400).json({ success: false, error: err });
       }
 
-      return res.status(200).json({ success: true, data: car });
+      return res.status(200).json({ success: true, car: car });
     });
 };
 
@@ -133,6 +133,6 @@ exports.getCars = async (req, res) => {
           .status(404)
           .json({ success: false, error: `Cars not found` });
       }
-      return res.status(200).json({ success: true, data: cars });
+      return res.status(200).json({ success: true, cars: cars });
     });
 };

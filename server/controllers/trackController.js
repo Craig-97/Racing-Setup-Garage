@@ -83,7 +83,7 @@ exports.deleteTrack = async (req, res) => {
       return res.status(404).json({ success: false, error: `Track not found` });
     }
 
-    return res.status(200).json({ success: true, data: track });
+    return res.status(200).json({ success: true, track: track });
   }).catch(err => console.log(err));
 };
 
@@ -96,7 +96,7 @@ exports.getTrackById = async (req, res) => {
         return res.status(400).json({ success: false, error: err });
       }
 
-      return res.status(200).json({ success: true, data: track });
+      return res.status(200).json({ success: true, track: track });
     });
 };
 
@@ -113,6 +113,6 @@ exports.getTracks = async (req, res) => {
           .status(404)
           .json({ success: false, error: `Tracks not found` });
       }
-      return res.status(200).json({ success: true, data: tracks });
+      return res.status(200).json({ success: true, tracks: tracks });
     });
 };
