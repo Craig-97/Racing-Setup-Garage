@@ -24,7 +24,12 @@ const Track = new Schema(
     corners: {
       type: Number,
       default: 0
-    }
+    },
+    game: {
+      type: Schema.Types.ObjectId,
+      ref: 'Game',
+      required: 'Game ID (game_id) required'
+    },
   },
   { timestamps: true }
 );

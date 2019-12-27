@@ -1,6 +1,7 @@
 'use strict';
 
 const Car = require('../models/carModel');
+const Game = require('../models/gameModel');
 
 exports.createCar = (req, res) => {
   const body = req.body;
@@ -21,6 +22,14 @@ exports.createCar = (req, res) => {
   car
     .save()
     .then(() => {
+      // UPDATE GAME CAR ONE-TO-MANY LIST
+      if (car.game) {
+        Game.findOne({ _id: car.game }, (err, game) => {
+          game.cars.push(car);
+          game.save();
+        });
+      }
+
       return res.status(201).json({
         success: true,
         message: 'Car created!',
@@ -52,7 +61,7 @@ exports.updateCar = async (req, res) => {
         message: 'Car not found!'
       });
     }
-    car = Object.assign(car, body)
+    car = Object.assign(car, body);
     car.__v = car.__v + 1;
 
     car
@@ -83,28 +92,47 @@ exports.deleteCar = async (req, res) => {
       return res.status(404).json({ success: false, error: `Car not found` });
     }
 
+    // UPDATE GAME CAR ONE-TO-MANY LIST
+    if (car.game) {
+      Game.findOne({ _id: car.game }, (err, game) => {
+        var index = game.cars.indexOf(car._id);
+        if (index > -1) {
+          game.cars.splice(index, 1);
+        }
+        game.save();
+      });
+    }
+
     return res.status(200).json({ success: true, data: car });
   }).catch(err => console.log(err));
 };
 
 exports.getCarById = async (req, res) => {
-  await Car.findOne({ _id: req.params.id }, (err, car) => {
-    if (err) {
-      return res.status(400).json({ success: false, error: err });
-    }
+  await Car.findOne({ _id: req.params.id })
+    .populate('game', '-cars')
+    .exec((err, car) => {
+      if (err) {
+        console.log(err);
+        return res.status(400).json({ success: false, error: err });
+      }
 
-    return res.status(200).json({ success: true, data: car });
-  }).catch(err => console.log(err));
+      return res.status(200).json({ success: true, data: car });
+    });
 };
 
 exports.getCars = async (req, res) => {
-  await Car.find({}, (err, cars) => {
-    if (err) {
-      return res.status(400).json({ success: false, error: err });
-    }
-    if (!cars.length) {
-      return res.status(404).json({ success: false, error: `Cars not found` });
-    }
-    return res.status(200).json({ success: true, data: cars });
-  }).catch(err => console.log(err));
+  await Car.find({})
+    .populate('game', '-cars')
+    .exec((err, cars) => {
+      if (err) {
+        console.log(err);
+        return res.status(400).json({ success: false, error: err });
+      }
+      if (!cars.length) {
+        return res
+          .status(404)
+          .json({ success: false, error: `Cars not found` });
+      }
+      return res.status(200).json({ success: true, data: cars });
+    });
 };

@@ -52,7 +52,7 @@ exports.updateTrack = async (req, res) => {
         message: 'Track not found!'
       });
     }
-    track = Object.assign(track, body)
+    track = Object.assign(track, body);
     track.__v = track.__v + 1;
 
     track
@@ -88,23 +88,31 @@ exports.deleteTrack = async (req, res) => {
 };
 
 exports.getTrackById = async (req, res) => {
-  await Track.findOne({ _id: req.params.id }, (err, track) => {
-    if (err) {
-      return res.status(400).json({ success: false, error: err });
-    }
+  await Track.findOne({ _id: req.params.id })
+    .populate('game')
+    .exec((err, track) => {
+      if (err) {
+        console.log(err);
+        return res.status(400).json({ success: false, error: err });
+      }
 
-    return res.status(200).json({ success: true, data: track });
-  }).catch(err => console.log(err));
+      return res.status(200).json({ success: true, data: track });
+    });
 };
 
 exports.getTracks = async (req, res) => {
-  await Track.find({}, (err, tracks) => {
-    if (err) {
-      return res.status(400).json({ success: false, error: err });
-    }
-    if (!tracks.length) {
-      return res.status(404).json({ success: false, error: `Tracks not found` });
-    }
-    return res.status(200).json({ success: true, data: tracks });
-  }).catch(err => console.log(err));
+  await Track.find({})
+    .populate('game')
+    .exec((err, tracks) => {
+      if (err) {
+        console.log(err);
+        return res.status(400).json({ success: false, error: err });
+      }
+      if (!tracks.length) {
+        return res
+          .status(404)
+          .json({ success: false, error: `Tracks not found` });
+      }
+      return res.status(200).json({ success: true, data: tracks });
+    });
 };

@@ -14,13 +14,21 @@ const Game = new Schema(
       enum: ['Xbox', 'Playstation', 'PC', 'Other']
     },
     imageURL: {
-      type: String,
+      type: String
     },
     developer: {
-      type: String,
+      type: String
     },
     releaseDate: {
-      type: Date,
+      type: Date
+    },
+    cars: {
+      type: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: 'Car'
+        }
+      ]
     }
   },
   { timestamps: true }

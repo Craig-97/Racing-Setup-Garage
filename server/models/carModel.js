@@ -9,8 +9,16 @@ const Car = new Schema(
       type: String,
       required: 'Car name (name) required'
     },
+    game: {
+      type: Schema.Types.ObjectId,
+      ref: 'Game',
+      required: 'Game ID (game_id) required'
+    },
     engine: {
       type: String
+    },
+    horsepower: {
+      type: Number
     },
     weight: {
       type: Number
