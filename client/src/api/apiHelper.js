@@ -16,3 +16,19 @@ export const apiGET = (dispatch, pendingAction, successAction, errorAction, url)
         dispatch(errorAction(error));
     })
   };
+
+  export const apiPOST = (dispatch, pendingAction, successAction, errorAction, url, object)  => {
+    dispatch(pendingAction());
+    axios
+      .post(`${API_BASE}/${url}`, object)
+      .then(res => {
+            if(res.error) {
+                throw(res.error);
+            }
+            dispatch(successAction(res.data[url]));
+            return res.data[url];
+      })
+      .catch(error => {
+        dispatch(errorAction(error));
+    })
+  };

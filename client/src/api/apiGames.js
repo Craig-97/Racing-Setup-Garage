@@ -1,26 +1,22 @@
-import { apiGET } from './apiHelper'
+import { apiGET, apiPOST } from './apiHelper';
 
-import {fetchGamesPending, fetchGamesSuccess, fetchGamesError} from '../actions';
+import {
+  fetchGamesPending,
+  fetchGamesSuccess,
+  fetchGamesError,
+  addGamePending,
+  addGameSuccess,
+  addGameError
+} from '../actions';
 
 export const fetchGames = () => dispatch => {
-  apiGET(dispatch, fetchGamesPending, fetchGamesSuccess, fetchGamesError, 'games')
+  apiGET(dispatch, fetchGamesPending, fetchGamesSuccess, fetchGamesError, 'games');
 };
-  
 
-//   export const addGame = game => dispatch => {
-//     axios
-//       .post(`${API_BASE}/games`, game)
-//       .then(res =>
-//         dispatch({
-//           type: FETCH_GAMES_SUCCESS,
-//           payload: res.data
-//         })
-//       )
-//       .catch(err =>
-//         dispatch(returnErrors(err.response.data, err.response.status))
-//       );
-//   };
-  
+export const addGame = game => dispatch => {
+  apiPOST(dispatch, addGamePending, addGameSuccess, addGameError, 'game', game);
+};
+
 //   export const deleteGame = id => dispatch => {
 //     axios
 //       .delete(`${API_BASE}/games/${id}`)
@@ -34,10 +30,9 @@ export const fetchGames = () => dispatch => {
 //         dispatch(returnErrors(err.response.data, err.response.status))
 //       );
 //   };
-  
+
 //   export const fetchGamesPending = () => {
 //     return {
 //       type: FETCH_GAMES_PENDING
 //     };
 //   };
-
