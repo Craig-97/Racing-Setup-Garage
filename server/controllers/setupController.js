@@ -83,7 +83,7 @@ exports.deleteSetup = async (req, res) => {
       return res.status(404).json({ success: false, error: `Setup not found` });
     }
 
-    return res.status(200).json({ success: true, data: setup });
+    return res.status(200).json({ success: true, setup: setup });
   }).catch(err => console.log(err));
 };
 
@@ -101,7 +101,7 @@ exports.getSetupById = async (req, res) => {
         return res.status(400).json({ success: false, error: err });
       }
 
-      return res.status(200).json({ success: true, data: setup });
+      return res.status(200).json({ success: true, setup: setup });
     });
 };
 
@@ -121,6 +121,6 @@ exports.getSetups = async (req, res) => {
           .status(404)
           .json({ success: false, error: `Setups not found` });
       }
-      return res.status(200).json({ success: true, data: setups });
+      return res.status(200).json({ success: true, setups: setups });
     });
 };

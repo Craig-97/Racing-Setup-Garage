@@ -1,38 +1,36 @@
-import {
-  GET_GAMES,
-  ADD_GAME,
-  DELETE_GAME,
-  GAMES_LOADING
-} from '../actions/types';
+import { FETCH_GAMES_PENDING, FETCH_GAMES_SUCCESS, FETCH_GAMES_ERROR } from '../actions/gameActions';
+
 
 const initialState = {
-  loading: false
-};
+    pending: false,
+    data: [],
+    error: null
+}
 
 export default function(state = initialState, action) {
-  switch (action.type) {
-    case GET_GAMES:
-      return {
-        ...state,
-        ...action.payload,
-        loading: false
-      };
-    case DELETE_GAME:
-      return {
-        ...state,
-        ...state.games.filter(game => game._id !== action.payload)
-      };
-    case ADD_GAME:
-      return {
-        ...state,
-        ...[action.payload, ...state.games]
-      };
-    case GAMES_LOADING:
-      return {
-        ...state,
-        loading: true
-      };
-    default:
-      return state;
-  }
+    switch(action.type) {
+        case FETCH_GAMES_PENDING: 
+            return {
+                ...state,
+                pending: true
+            }
+        case FETCH_GAMES_SUCCESS:
+            return {
+                ...state,
+                pending: false,
+                data: action.payload
+            }
+        case FETCH_GAMES_ERROR:
+            return {
+                ...state,
+                pending: false,
+                error: action.error
+            }
+        default: 
+            return state;
+    }
 }
+
+export const getGames = state => state.games.data;
+export const getGamesPending = state => state.games.pending;
+export const getGamesError = state => state.games.error;

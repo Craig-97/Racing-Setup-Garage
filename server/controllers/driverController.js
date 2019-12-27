@@ -85,7 +85,7 @@ exports.deleteDriver = async (req, res) => {
         .json({ success: false, error: `Driver not found` });
     }
 
-    return res.status(200).json({ success: true, data: driver });
+    return res.status(200).json({ success: true, driver: driver });
   }).catch(err => console.log(err));
 };
 
@@ -95,7 +95,7 @@ exports.getDriverById = async (req, res) => {
       return res.status(400).json({ success: false, error: err });
     }
 
-    return res.status(200).json({ success: true, data: driver });
+    return res.status(200).json({ success: true, driver: driver });
   }).catch(err => console.log(err));
 };
 
@@ -109,6 +109,6 @@ exports.getDrivers = async (req, res) => {
         .status(404)
         .json({ success: false, error: `Driver not found` });
     }
-    return res.status(200).json({ success: true, data: drivers });
+    return res.status(200).json({ success: true, drivers: drivers });
   }).catch(err => console.log(err));
 };
