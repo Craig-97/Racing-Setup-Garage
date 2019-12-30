@@ -1,20 +1,25 @@
 .Homepage-games {
-  .Homepage-games__select {
-    display: block;
-    margin: 1rem 2rem 0rem;
-    max-width: 120px;
-    max-width: 290px;
-    border-radius: 4px;
-    padding: 0.5rem;
-    font-weight: bold;
-    color: white;
+  .Homepage-games-select {
+    margin: 1rem 2rem 0;
+    width: 18rem;
 
-    .MuiSelect-icon {
+    .MuiFormLabel-root {
       color: white;
     }
-
-    &:before {
-      border-bottom: 1px solid white;
+  
+    &__dropdown {
+      font-weight: bold;
+      color: white;
+      width: 100%;
+  
+      .MuiSelect-icon {
+        color: white;
+      }
+  
+      &:before {
+        border-bottom: 1px solid white;
+      }
     }
   }
+  
 }

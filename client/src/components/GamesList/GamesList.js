@@ -69,6 +69,7 @@ export const GamesList = ({ BEM_BASE }) => {
           <GamesHeader
             BEM_BASE={BEM_BASE}
             updateFilteredGames={updateFilteredGames}
+            games={games}
           />
           {renderGameCards()}
         </>
