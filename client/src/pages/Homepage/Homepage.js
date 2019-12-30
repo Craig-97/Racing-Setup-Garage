@@ -3,16 +3,15 @@ import React from 'react';
 import { Navbar } from '../../components/Navbar';
 import { GamesList } from '../../components/GamesList';
 
-import './App.scss';
+import './Homepage.scss';
 
-const App = () => {
-
+const Homepage = () => {
   return (
     <div className='Homepage'>
       <Navbar />
-      <GamesList BEM_BASE={'Homepage'}/>
+      <GamesList BEM_BASE={'Homepage'} />
     </div>
   );
 };
 
-export default App;
+export default Homepage;

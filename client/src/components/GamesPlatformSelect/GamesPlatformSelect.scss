@@ -3,10 +3,18 @@
     display: block;
     margin: 1rem 2rem 0rem;
     max-width: 120px;
-    max-width: 300px;
-    background: white;
+    max-width: 290px;
     border-radius: 4px;
     padding: 0.5rem;
     font-weight: bold;
+    color: white;
+
+    .MuiSelect-icon {
+      color: white;
+    }
+
+    &:before {
+      border-bottom: 1px solid white;
+    }
   }
 }

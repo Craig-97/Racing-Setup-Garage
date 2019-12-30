@@ -1,0 +1,16 @@
+.Navbar {
+  &-links {
+    ul {
+      display: flex;
+      list-style: none;
+      li {
+        margin: 0 3rem 0 0;
+        font-size: 1.5rem;
+        a {
+          color: #dcdcdc;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}
