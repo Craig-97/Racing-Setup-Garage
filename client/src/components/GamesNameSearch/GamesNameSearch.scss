@@ -1,0 +1,23 @@
+.Homepage-games-search {
+  margin: 1rem 2rem 0;
+  width: 18rem;
+
+  .MuiFormLabel-root,
+  .MuiAutocomplete-clearIndicator {
+    color: white;
+  }
+
+  &__textfield {
+    font-weight: bold;
+    color: white;
+
+    .MuiInputBase-root {
+      color: white;
+      
+      
+      &:before {
+        border-bottom: 1px solid white;
+      }
+    }
+  }
+}
