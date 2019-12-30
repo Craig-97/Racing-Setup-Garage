@@ -4,17 +4,17 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import store from './store';
 
+import { Routes } from './routes';
+
 import './styles/index.scss';
-import App from './pages/homepage/App';
 
 import * as serviceWorker from './serviceWorker';
 
 const rootElement = document.getElementById('root');
+
 ReactDOM.render(
   <Provider store={store}>
-    <div className='app-container'>
-      <App />
-    </div>
+      <Routes />
   </Provider>,
   rootElement
 );

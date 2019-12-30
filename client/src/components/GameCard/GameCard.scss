@@ -1,11 +1,13 @@
-.Game-card {
-    display: inline-block;
-    margin: 2rem;
-    text-align: center;
-    max-width: 18rem;
-
-    &__image {
-        max-height: 24rem;
-        width: 100%;
+.Homepage-games {
+    .Game-card {
+        display: inline-block;
+        margin: 2rem;
+        text-align: center;
+        max-width: 18rem;
+    
+        &__image {
+            max-height: 24rem;
+            width: 100%;
+        }
     }
 }
