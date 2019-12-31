@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Navbar } from '../../components/Navbar';
-import { GamesList } from '../../components/GamesList';
+import { GamesList } from '../../components/Games/GamesList';
 
 import './Homepage.scss';
 
