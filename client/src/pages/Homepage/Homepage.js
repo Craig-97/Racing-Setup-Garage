@@ -1,16 +1,20 @@
 import React from 'react';
 
 import { Navbar } from '../../components/Navbar';
-import { GamesList } from '../../components/GamesList';
+import { GamesList } from '../../components/Games/GamesList';
 
 import './Homepage.scss';
 
 const Homepage = () => {
+  const BEM_BASE = 'Homepage';
+  
   return (
-    <div className='Homepage'>
+    <>
       <Navbar />
-      <GamesList BEM_BASE={'Homepage'} />
-    </div>
+      <div className={`${BEM_BASE} page-container`}>
+        <GamesList BEM_BASE={BEM_BASE} />
+      </div>
+    </>
   );
 };
 

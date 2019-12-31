@@ -12,7 +12,7 @@ export const Navbar = () => {
   return (
     <AppBar className='Navbar' position='sticky'>
       <Toolbar>
-        <Typography className="Navbar-header" variant='h4'>SimRacing Setup Garage</Typography>
+        <Typography variant='h1'>Racing Setup Garage</Typography>
         <div className="Navbar-links">
         <ul>
           <li>

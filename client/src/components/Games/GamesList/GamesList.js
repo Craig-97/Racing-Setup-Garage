@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchGames } from '../../api';
-import { getGames, getGamesPending } from '../../reducers/gameReducer';
-import { resultsFilterer } from '../../util'
+import { fetchGames } from '../../../api';
+import { getGames, getGamesPending } from '../../../reducers/gameReducer';
+import { resultsFilterer } from '../../../util'
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import { GameCard } from '../../components/GameCard';
-import { GamesHeader } from '../GamesHeader/GamesHeader';
+import { GameCard } from '../GameCard'
+import { GamesHeader } from '../GamesHeader';
 
 import './GamesList.scss';
 
@@ -69,7 +69,7 @@ export const GamesList = ({ BEM_BASE }) => {
           <GamesHeader
             BEM_BASE={BEM_BASE}
             updateFilteredGames={updateFilteredGames}
-            games={games}
+            filteredGames={filteredGames}
           />
           {renderGameCards()}
         </>

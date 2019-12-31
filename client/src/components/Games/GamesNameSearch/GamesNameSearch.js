@@ -6,8 +6,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 
 import './GamesNameSearch.scss';
 
-export const GamesNameSearch = ({ BEM_BASE, updateFilteredGames, games }) => {
-  const names = games && games.length ? games.map(game => game.name) : [];
+export const GamesNameSearch = ({ BEM_BASE, updateFilteredGames, filteredGames }) => {
+  const names = filteredGames && filteredGames.length ? filteredGames.map(game => game.name) : [];
 
   /* CALLED WHEN ENTER IS HIT */
   const onChange = value => {

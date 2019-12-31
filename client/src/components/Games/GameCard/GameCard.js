@@ -14,7 +14,7 @@ export const GameCard = ({ game }) => {
       <CardActionArea>
         <Img className="Game-card__image" src={game.imageURL} alt={game.name} />
         <CardContent>
-          <Typography gutterBottom variant='h5' component='h2'>
+          <Typography gutterBottom component='h4'>
             {game.name}
           </Typography>
         </CardContent>
