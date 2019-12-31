@@ -5,15 +5,15 @@ import { GamesPlatformSelect } from '../GamesPlatformSelect';
 
 import './GamesHeader.scss';
 
-export const GamesHeader = ({ BEM_BASE, updateFilteredGames, games }) => {
+export const GamesHeader = ({ BEM_BASE, updateFilteredGames, filteredGames }) => {
   return (
     <>
-      <h4 className={`${BEM_BASE}-games__header`}>Games</h4>
+      <h1 className={`${BEM_BASE}-games__header`}>Games</h1>
       <div className={`${BEM_BASE}-games__filters`}>
         <GamesNameSearch
           BEM_BASE={BEM_BASE}
           updateFilteredGames={updateFilteredGames}
-          games={games}
+          filteredGames={filteredGames}
         />
         <GamesPlatformSelect
           BEM_BASE={BEM_BASE}
