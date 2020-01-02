@@ -13,7 +13,7 @@ export const apiGET = (dispatch, pendingAction, successAction, errorAction, url)
             return res.data[url];
       })
       .catch(error => {
-        dispatch(errorAction(error));
+        dispatch(errorAction(error.response));
     })
   };
 
@@ -29,6 +29,6 @@ export const apiGET = (dispatch, pendingAction, successAction, errorAction, url)
             return res.data[url];
       })
       .catch(error => {
-        dispatch(errorAction(error));
+        dispatch(errorAction(error.response));
     })
   };

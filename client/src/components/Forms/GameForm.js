@@ -21,14 +21,15 @@ export const GameForm = () => {
     type: gamesCRUDType(state)
   }));
 
-  const formRef = useRef(null)
+  const formRef = useRef(null);
   const dispatch = useDispatch();
   const [showMessage, setShowMessage] = useState(false);
   const SHOW_MESSAGE_DISPLAY_TIME = 5000;
 
   const onSubmitSuccess = () => {
     if (formRef.current.state.model) {
-      dispatch(addGame(formRef.current.state.model));
+      let newGame = formRef.current.state.model;
+      dispatch(addGame(newGame));
       setShowMessage(true);
     }
   };
@@ -48,9 +49,16 @@ export const GameForm = () => {
   const gameError = () => {
     if (!pending && error && type === 'ADD' && showMessage) {
       hideMessageTimeout();
+
+      let mainError = error.message;
+      let type = error.error.name;
+      let description = error.error.message;
+
       return (
         <div>
-          {error.name} {error.message}
+          <h2>{mainError}</h2>
+          <h4>{type}</h4>
+          <h5>{description}</h5>
         </div>
       );
     }

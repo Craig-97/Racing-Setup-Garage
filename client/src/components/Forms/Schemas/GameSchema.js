@@ -8,6 +8,7 @@ let schema = new SimpleSchema({
   },
   platform: {
     type: Array,
+    minCount: 1,
     label: 'Platform'
   },
 
