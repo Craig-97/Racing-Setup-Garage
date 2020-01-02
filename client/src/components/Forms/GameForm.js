@@ -76,6 +76,7 @@ export const GameForm = () => {
     <section>
       <AutoForm
         ref={formRef}
+        autocomplete={"off"}
         className={'game-form'}
         schema={GameSchema}
         onSubmitSuccess={onSubmitSuccess}
