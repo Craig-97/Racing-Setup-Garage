@@ -44,6 +44,6 @@ export const addGameSuccess = (game) => {
 export const addGameError = (error) => {
     return {
         type: ADD_GAME_ERROR,
-        error: error
+        error: {...error.data}
     }
 }
