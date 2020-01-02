@@ -7,11 +7,12 @@ const Game = new Schema(
   {
     name: {
       type: String,
-      required: 'Game name (name) required'
+      required: 'Game name required'
     },
     platform: {
       type: [String],
-      enum: ['Xbox', 'Playstation', 'PC', 'Other']
+      enum: ['PC', 'Playstation', 'Xbox'],
+      required: 'Game platform required'
     },
     imageURL: {
       type: String
