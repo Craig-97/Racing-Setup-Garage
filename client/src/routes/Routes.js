@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Homepage from '../pages/Homepage/Homepage';
-import AddEntity from '../pages/AddEntity/AddEntity';
+import Manage from '../pages/Manage/Manage';
 
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -27,7 +27,7 @@ export const Routes = () => {
         <div className='app-container'>
           <Switch>
             <Route exact path='/' component={Homepage} />
-            <Route path='/AddEntity' component={AddEntity} />
+            <Route path='/Manage' component={Manage} />
           </Switch>
         </div>
       </Router>
