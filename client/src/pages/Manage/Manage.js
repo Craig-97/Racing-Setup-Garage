@@ -13,9 +13,7 @@ const Manage = () => {
       <div className={`${BEM_BASE} page-container`}>
         <h1 className={`${BEM_BASE}-header`}>Games Form</h1>
 
-        <h1 style={{ color: 'white', textAlign: 'center' }}>
           <GameForm />
-        </h1>
       </div>
     </>
   );
