@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { KeyboardDatePicker } from '@material-ui/pickers';
+
 import { addGame } from '../../api';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 
 import {
   gamesCRUDPending,
@@ -23,7 +29,15 @@ export const GameForm = () => {
   const SHOW_MESSAGE_DISPLAY_TIME = 5000;
   const [showMessage, setShowMessage] = useState(false);
   const [showMessageType, setShowMessageType] = useState(null);
-  const { register, handleSubmit, reset, errors, formState } = useForm();
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const {
+    register,
+    handleSubmit,
+    reset,
+    errors,
+    formState,
+    control
+  } = useForm();
   let disabled = showMessageType === 'pending';
 
   useEffect(() => {
@@ -43,7 +57,6 @@ export const GameForm = () => {
     // eslint-disable-next-line
   }, [pending, error, message, type]);
 
-  
   const onSubmit = data => {
     if (data) {
       const submitData = formatData(data);
@@ -55,7 +68,7 @@ export const GameForm = () => {
   const formatData = data => {
     // Format Date
     if (data.releaseDate) {
-      data.releaseDate = new Date(data.releaseDate);
+      data.releaseDate = data.releaseDate.toDate();
     }
     return data;
   };
@@ -72,76 +85,81 @@ export const GameForm = () => {
     }, SHOW_MESSAGE_DISPLAY_TIME);
   };
 
+  const renderMessages = () => {
+    return (
+      <div className='game-form__messages'>
+        {showMessageType === 'pending' && (
+          <>
+            <CircularProgress size={100} /> <h2>ADDING GAME</h2>
+          </>
+        )}
+        {showMessageType === 'error' && (
+          <>
+            <h2>{error?.message}</h2>
+            <h4>{error?.error.name}</h4>
+            <h5>{error?.error.message}</h5>
+          </>
+        )}
+        {showMessageType === 'success' && <h2>{message}</h2>}
+      </div>
+    );
+  };
+
   return (
     <section>
-      <form className='game-form' onSubmit={handleSubmit(onSubmit)}>
+      <form
+        autoComplete='off'
+        className='game-form'
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <label>Name</label>
-        <input
-          type='text'
+        <TextField
           name='name'
+          autoComplete='off'
+          inputRef={register({ required: true, maxLength: 80 })}
           disabled={disabled}
-          ref={register({ required: true, maxLength: 80 })}
         />
         {errors.name && <p>Name is required</p>}
-
         <label>Platform</label>
-        <select
-          multiple
+        <Controller
+          as={
+            <Select disabled={disabled} multiple>
+              <MenuItem value={'PC'}>PC</MenuItem>
+              <MenuItem value={'Playstation'}>Playstation</MenuItem>
+              <MenuItem value={'Xbox'}>Xbox</MenuItem>
+            </Select>
+          }
           name='platform'
-          disabled={disabled}
-          ref={register({ required: true })}
-        >
-          <option value='PC'>PC</option>
-          <option value='Playstation'>Playstation</option>
-          <option value='Xbox'>Xbox</option>
-        </select>
+          control={control}
+          defaultValue={['PC', 'Playstation', 'Xbox']}
+        />
         {errors.platform && <p>At least one Platform is required</p>}
-
         <label>Image URL</label>
-        <input
-          type='url'
-          name='imageURL'
-          disabled={disabled}
-          ref={register({ pattern: /^\S+@\S+$/i })}
-        />
 
+        <TextField name='imageURL' inputRef={register} disabled={disabled} />
         <label>Developer</label>
-        <input
-          type='text'
-          name='developer'
-          disabled={disabled}
-          ref={register}
-        />
 
+        <TextField name='developer' inputRef={register} disabled={disabled} />
         <label>Release Date</label>
-        <input
-          type='datetime'
-          placeholder='DD/MM/YYYY'
+
+        <Controller
+          as={
+            <KeyboardDatePicker
+              clearable
+              placeholder='01/01/2020'
+              onChange={date => setSelectedDate(date)}
+              minDate={new Date()}
+              format={'DD/MM/YYYY'}
+            />
+          }
           name='releaseDate'
-          disabled={disabled}
-          ref={register}
+          control={control}
+          defaultValue={selectedDate}
         />
 
         <input type='submit' disabled={disabled} />
       </form>
-
-      {showMessage && (
-        <div className='game-form__messages'>
-          {showMessageType === 'pending' && (
-            <>
-              <CircularProgress size={100} /> <h2>ADDING GAME</h2>
-            </>
-          )}
-          {showMessageType === 'error' && (
-            <>
-              <h2>{error.message}</h2>
-              <h4>{error.error.name}</h4>
-              <h5>{error.error.message}</h5>
-            </>
-          )}
-          {showMessageType === 'success' && <h2>{message}</h2>}
-        </div>
-      )}
+      {showMessage && renderMessages()}
     </section>
   );
 };

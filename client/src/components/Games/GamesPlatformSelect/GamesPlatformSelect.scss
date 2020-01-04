@@ -5,21 +5,20 @@
 
     .MuiFormLabel-root {
       color: white;
-    }
-  
-    &__dropdown {
       font-weight: bold;
+    }
+
+    &__dropdown {
       color: white;
       width: 100%;
-  
+
       .MuiSelect-icon {
         color: white;
       }
-  
+
       &:before {
-        border-bottom: 1px solid white;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.7);
       }
     }
   }
-  
 }

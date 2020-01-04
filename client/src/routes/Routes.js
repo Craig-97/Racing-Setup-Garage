@@ -4,6 +4,8 @@ import Homepage from '../pages/Homepage/Homepage';
 import Manage from '../pages/Manage/Manage';
 
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import MomentUtils from '@date-io/moment';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -23,6 +25,7 @@ export const Routes = () => {
 
   return (
     <ThemeProvider theme={theme}>
+      <MuiPickersUtilsProvider utils={MomentUtils}>
       <Router>
         <div className='app-container'>
           <Switch>
@@ -31,6 +34,7 @@ export const Routes = () => {
           </Switch>
         </div>
       </Router>
+      </MuiPickersUtilsProvider>
     </ThemeProvider>
   );
 };
