@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import MenuItem from '@material-ui/core/MenuItem';
@@ -7,7 +7,9 @@ import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 
-import { addGame } from '../../api';
+import moment from 'moment'
+
+import { addGame } from '../../api'
 import { useForm, Controller } from 'react-hook-form';
 
 import {
@@ -29,7 +31,7 @@ export const GameForm = () => {
   const SHOW_MESSAGE_DISPLAY_TIME = 5000;
   const [showMessage, setShowMessage] = useState(false);
   const [showMessageType, setShowMessageType] = useState(null);
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(new moment());
   const {
     register,
     handleSubmit,
@@ -89,15 +91,15 @@ export const GameForm = () => {
     return (
       <div className='game-form__messages'>
         {showMessageType === 'pending' && (
-          <>
+          <Fragment>
             <CircularProgress size={100} /> <h2>ADDING GAME</h2>
-          </>
+          </Fragment>
         )}
         {showMessageType === 'error' && (
           <>
-            <h2>{error?.message}</h2>
-            <h4>{error?.error.name}</h4>
-            <h5>{error?.error.message}</h5>
+            <h2>{error.message}</h2>
+            <h4>{error.error.name}</h4>
+            <h5>{error.error.message}</h5>
           </>
         )}
         {showMessageType === 'success' && <h2>{message}</h2>}
