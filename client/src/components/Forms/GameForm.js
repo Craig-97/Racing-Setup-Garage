@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-
 import { useDispatch, useSelector } from 'react-redux';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { addGame } from '../../api';
+import { useForm } from 'react-hook-form';
 
 import {
   gamesCRUDPending,
@@ -8,9 +10,6 @@ import {
   gamesCRUDMessage,
   gamesCRUDType
 } from '../../reducers/gameReducer';
-
-import { addGame } from '../../api';
-import { useForm } from 'react-hook-form';
 
 export const GameForm = () => {
   const { pending, error, message, type } = useSelector(state => ({
@@ -26,14 +25,6 @@ export const GameForm = () => {
   const [showMessageType, setShowMessageType] = useState(null);
   const { register, handleSubmit, reset, errors, formState } = useForm();
   let disabled = showMessageType === 'pending';
-
-  const onSubmit = data => {
-    if (data) {
-      const submitData = formatData(data);
-      setShowMessage(true);
-      dispatch(addGame(submitData));
-    }
-  };
 
   useEffect(() => {
     if (!pending && message && showMessage) {
@@ -51,6 +42,15 @@ export const GameForm = () => {
     }
     // eslint-disable-next-line
   }, [pending, error, message, type]);
+
+  
+  const onSubmit = data => {
+    if (data) {
+      const submitData = formatData(data);
+      setShowMessage(true);
+      dispatch(addGame(submitData));
+    }
+  };
 
   const formatData = data => {
     // Format Date
@@ -124,9 +124,14 @@ export const GameForm = () => {
 
         <input type='submit' disabled={disabled} />
       </form>
+
       {showMessage && (
         <div className='game-form__messages'>
-          {showMessageType === 'pending' && <div>ADDING GAME</div>}
+          {showMessageType === 'pending' && (
+            <>
+              <CircularProgress size={100} /> <h2>ADDING GAME</h2>
+            </>
+          )}
           {showMessageType === 'error' && (
             <>
               <h2>{error.message}</h2>
@@ -134,7 +139,7 @@ export const GameForm = () => {
               <h5>{error.error.message}</h5>
             </>
           )}
-          {showMessageType === 'success' && <div>{message}</div>}
+          {showMessageType === 'success' && <h2>{message}</h2>}
         </div>
       )}
     </section>
