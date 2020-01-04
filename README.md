@@ -1,4 +1,4 @@
-# SimRacing-Setup-Database
+# Racing Setup Garage
 
 **App built using the MERN Stack**
 
