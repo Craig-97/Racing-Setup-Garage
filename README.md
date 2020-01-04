@@ -6,8 +6,9 @@ How to run:
   - cd server
   - yarn run dev
   - visit ocalhost:3000
-
+  
 This will run the API and webpack dev server
+
 -------------------------------------------------------------
 
 *Currently WIP, the application will allow you to filter down
