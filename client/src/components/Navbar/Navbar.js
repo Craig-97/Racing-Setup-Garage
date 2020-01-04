@@ -19,7 +19,7 @@ export const Navbar = () => {
             <Link to='/'>Home</Link>
           </li>
           <li>
-            <Link to='/AddEntity'>Add Entity</Link>
+            <Link to='/manage'>Manage</Link>
           </li>
         </ul>
       </div>

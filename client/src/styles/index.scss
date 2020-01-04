@@ -23,6 +23,101 @@ code {
     margin: auto;
   }
 
+  form {
+    margin: 1rem 2rem;
+
+    p {
+      color: #bf1650;
+    }
+
+    p::before {
+      display: inline;
+      content: '⚠ ';
+    }
+
+    input {
+      display: block;
+      box-sizing: border-box;
+      width: 100%;
+      border-radius: 4px;
+      padding: 10px 15px;
+      font-size: 1rem;
+    }
+
+    .MuiInput-root,
+    .MuiFormControl-root {
+      width: 100%;
+      color: white;
+      input {
+        padding: 1rem 0;
+      }
+    }
+
+    .MuiInputBase-root {
+      color: white;
+      &:before {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+      }
+    }
+
+    label {
+      line-height: 2;
+      text-align: left;
+      display: block;
+      margin-bottom: 10px;
+      margin-top: 20px;
+      color: white;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    button[type='submit'],
+    input[type='submit'] {
+      background: #ec5990;
+      color: white;
+      text-transform: uppercase;
+      border: none;
+      width: 25%;
+      margin: 40px auto;
+      padding: 20px;
+      font-size: 16px;
+      font-weight: 100;
+      letter-spacing: 10px;
+    }
+
+    button[type='submit']:hover,
+    input[type='submit']:hover {
+      background: #bf1650;
+    }
+
+    button[type='submit']:active,
+    input[type='button']:active,
+    input[type='submit']:active {
+      transition: 0.3s all;
+      transform: translateY(3px);
+      border: 1px solid transparent;
+      opacity: 0.8;
+    }
+
+    input:disabled {
+      opacity: 0.4;
+    }
+
+    .MuiSvgIcon-root {
+      color: white;
+    }
+
+    input[type='button']:hover {
+      transition: 0.3s all;
+    }
+
+    button[type='submit'],
+    input[type='button'],
+    input[type='submit'] {
+      -webkit-appearance: none;
+    }
+  }
+
   // FONT SIZES
   h1 {
     font-size: 2.5rem;
