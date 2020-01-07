@@ -11,7 +11,7 @@ export const MultiSelect = ({ name, options, disabled, Controller, control }) =>
       as={
         <Select disabled={disabled} multiple>
           {options.map(option => (
-            <MenuItem value={option}>{option}</MenuItem>
+            <MenuItem key={option} value={option}>{option}</MenuItem>
           ))}
         </Select>
       }
