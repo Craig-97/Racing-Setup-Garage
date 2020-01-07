@@ -4,14 +4,14 @@ import { useSelector, useDispatch } from "react-redux";
 import MaterialTable from "material-table";
 import { GameForm } from "../../Forms";
 
-import { fetchGames } from "../../../api";
+import { fetchGames, deleteGame } from "../../../api";
 import { getGames, gamesCRUDPending } from "../../../reducers/gameReducer";
 
 import "./GameManagement.scss";
 
 export const GameManagement = ({ BEM_BASE }) => {
   const dispatch = useDispatch();
-  const [gameData, setGameData] = useState([])
+  const [gameData, setGameData] = useState([]);
 
   const { games, isLoading } = useSelector(state => ({
     games: getGames(state),
@@ -25,18 +25,22 @@ export const GameManagement = ({ BEM_BASE }) => {
   }, [dispatch]);
 
   useEffect(() => {
-    let data = [...games];
+    let newGames = [...games];
 
-    if (games && games.length) {
-      data.forEach(game => {
+    if (newGames && newGames.length) {
+      newGames.forEach(game => {
         if (game.platform && Array.isArray(game.platform)) {
           game.platform = game.platform.join(", ");
         }
       });
 
-      setGameData(data);
+      setGameData(newGames);
     }
   }, [games]);
+
+  const deleteGame = (rowData) => {
+    confirm("You want to delete " + rowData);
+  };
 
   return (
     <Fragment>
@@ -64,8 +68,7 @@ export const GameManagement = ({ BEM_BASE }) => {
             {
               icon: "delete",
               tooltip: "Delete Game",
-              onClick: (event, rowData) =>
-                confirm("You want to delete " + rowData.name)
+              onClick: (event, rowData) => deleteGame(rowData)
             }
           ]}
         />
