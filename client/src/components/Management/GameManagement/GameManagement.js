@@ -1,27 +1,42 @@
-import React, { Fragment } from "react";
-import { useSelector } from "react-redux";
+import React, { Fragment, useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import MaterialTable from "material-table";
 import { GameForm } from "../../Forms";
+
+import { fetchGames } from "../../../api";
 import { getGames, gamesCRUDPending } from "../../../reducers/gameReducer";
 
 import "./GameManagement.scss";
 
 export const GameManagement = ({ BEM_BASE }) => {
+  const dispatch = useDispatch();
+  const [gameData, setGameData] = useState([])
+
   const { games, isLoading } = useSelector(state => ({
     games: getGames(state),
     isLoading: gamesCRUDPending(state)
   }));
 
-  let gameData = [...games];
+  useEffect(() => {
+    if (!games || !games.length) {
+      dispatch(fetchGames());
+    }
+  }, [dispatch]);
 
-  if (games && games.length) {
-    gameData.forEach(game => {
-      if (game.platform && Array.isArray(game.platform)) {
-        game.platform = game.platform.join(", ");
-      }
-    });
-  }
+  useEffect(() => {
+    let data = [...games];
+
+    if (games && games.length) {
+      data.forEach(game => {
+        if (game.platform && Array.isArray(game.platform)) {
+          game.platform = game.platform.join(", ");
+        }
+      });
+
+      setGameData(data);
+    }
+  }, [games]);
 
   return (
     <Fragment>
@@ -43,7 +58,7 @@ export const GameManagement = ({ BEM_BASE }) => {
               icon: "edit",
               tooltip: "Edit Game",
               onClick: (event, rowData) => {
-                  alert("You edited " + rowData.name)
+                alert("You edited " + rowData.name);
               }
             },
             {

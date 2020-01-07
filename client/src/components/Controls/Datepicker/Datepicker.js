@@ -14,7 +14,7 @@ export const Datepicker = ({name, disabled, Controller, control}) => {
       <KeyboardDatePicker
         clearable
         disabled={disabled}
-        placeholder={selectedDate.toDate()}
+        placeholder={selectedDate.toString()}
         onChange={date => setSelectedDate(date)}
         minDate={new Date()}
         format={'DD/MM/YYYY'}

@@ -6,7 +6,10 @@ import {
   fetchGamesError,
   addGamePending,
   addGameSuccess,
-  addGameError
+  addGameError,
+  deleteGamePending,
+  deleteGameSuccess,
+  deleteGameError
 } from '../actions';
 
 export const fetchGames = () => dispatch => {
@@ -17,22 +20,6 @@ export const addGame = game => dispatch => {
   apiPOST(dispatch, addGamePending, addGameSuccess, addGameError, 'game', game);
 };
 
-//   export const deleteGame = id => dispatch => {
-//     axios
-//       .delete(`${API_BASE}/games/${id}`)
-//       .then(res =>
-//         dispatch({
-//           type: DELETE_GAME,
-//           payload: id
-//         })
-//       )
-//       .catch(err =>
-//         dispatch(returnErrors(err.response.data, err.response.status))
-//       );
-//   };
-
-//   export const fetchGamesPending = () => {
-//     return {
-//       type: FETCH_GAMES_PENDING
-//     };
-//   };
+export const deleteGame = id => dispatch => {
+  apiDELETE(dispatch, deleteGamePending, deleteGameSuccess, deleteGameError, id)
+};
