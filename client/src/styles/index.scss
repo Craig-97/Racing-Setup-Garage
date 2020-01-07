@@ -22,9 +22,9 @@ code {
     max-width: 76%;
     margin: auto;
   }
-
+  
   form {
-    margin: 1rem 2rem;
+    margin: 1.75rem 1rem 1rem;
 
     p {
       color: #bf1650;
@@ -37,11 +37,6 @@ code {
 
     input {
       display: block;
-      box-sizing: border-box;
-      width: 100%;
-      border-radius: 4px;
-      padding: 10px 15px;
-      font-size: 1rem;
     }
 
     .MuiInput-root,
@@ -49,7 +44,7 @@ code {
       width: 100%;
       color: white;
       input {
-        padding: 1rem 0;
+        padding: 0.5rem 0;
       }
     }
 
@@ -61,11 +56,9 @@ code {
     }
 
     label {
-      line-height: 2;
       text-align: left;
       display: block;
-      margin-bottom: 10px;
-      margin-top: 20px;
+      margin: 1.25rem 0 0.5rem;
       color: white;
       font-size: 1rem;
       font-weight: 700;
@@ -77,12 +70,14 @@ code {
       color: white;
       text-transform: uppercase;
       border: none;
-      width: 25%;
-      margin: 40px auto;
-      padding: 20px;
-      font-size: 16px;
-      font-weight: 100;
-      letter-spacing: 10px;
+      width: 8rem;
+      margin: 1rem auto;
+      padding: 1rem;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      border-radius: 4px;
+      cursor: pointer;
     }
 
     button[type='submit']:hover,
@@ -120,21 +115,21 @@ code {
 
   // FONT SIZES
   h1 {
-    font-size: 2.5rem;
-  }
-  h2 {
     font-size: 2rem;
   }
-  h3 {
-    font-size: 1.75rem;
-  }
-  h4 {
+  h2 {
     font-size: 1.5rem;
   }
+  h3 {
+    font-size: 1.35rem;
+  }
+  h4 {
+    font-size: 1.1rem;
+  }
   h5 {
-    font-size: 1.25rem;
+    font-size: 0.75rem;
   }
   h6 {
-    font-size: 1rem;
+    font-size: 0.55rem;
   }
 }

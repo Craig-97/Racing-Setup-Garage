@@ -1,13 +1,13 @@
-import React, { Fragment, useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { Fragment, useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
-import MaterialTable from "material-table";
-import { GameForm } from "../../Forms";
+import MaterialTable from 'material-table';
+import { GameForm } from '../../Forms';
 
-import { fetchGames, deleteGame } from "../../../api";
-import { getGames, gamesCRUDPending } from "../../../reducers/gameReducer";
+import { fetchGames, deleteGame } from '../../../api';
+import { getGames, gamesCRUDPending } from '../../../reducers/gameReducer';
 
-import "./GameManagement.scss";
+import './GameManagement.scss';
 
 export const GameManagement = ({ BEM_BASE }) => {
   const dispatch = useDispatch();
@@ -30,7 +30,7 @@ export const GameManagement = ({ BEM_BASE }) => {
     if (newGames && newGames.length) {
       newGames.forEach(game => {
         if (game.platform && Array.isArray(game.platform)) {
-          game.platform = game.platform.join(", ");
+          game.platform = game.platform.join(', ');
         }
       });
 
@@ -38,39 +38,42 @@ export const GameManagement = ({ BEM_BASE }) => {
     }
   }, [games]);
 
-  const deleteGame = (rowData) => {
-    confirm("You want to delete " + rowData);
+  const deleteGame = rowData => {
+    confirm('You want to delete ' + rowData);
   };
 
   return (
     <Fragment>
       <h1 className={`${BEM_BASE}-header`}>Games Form</h1>
 
-      <GameForm />
-      <div style={{ margin: "0 2rem", padding: "0 0 2rem" }}>
+      <GameForm BEM_BASE={BEM_BASE} />
+      <div className={`${BEM_BASE}-table`}>
         <MaterialTable
           columns={[
-            { title: "Name", field: "name" },
-            { title: "Platforms", field: "platform" },
-            { title: "Developer", field: "developer" },
-            { title: "Release Date", field: "releaseDate", type: "date" }
+            { title: 'Name', field: 'name' },
+            { title: 'Platforms', field: 'platform' },
+            { title: 'Developer', field: 'developer' },
+            { title: 'Release Date', field: 'releaseDate', type: 'date' }
           ]}
           data={gameData}
-          title="Games"
+          title='Games'
           actions={[
             {
-              icon: "edit",
-              tooltip: "Edit Game",
+              icon: 'edit',
+              tooltip: 'Edit Game',
               onClick: (event, rowData) => {
-                alert("You edited " + rowData.name);
+                alert('You edited ' + rowData.name);
               }
             },
             {
-              icon: "delete",
-              tooltip: "Delete Game",
+              icon: 'delete',
+              tooltip: 'Delete Game',
               onClick: (event, rowData) => deleteGame(rowData)
             }
           ]}
+          options={{
+            actionsColumnIndex: -1
+          }}
         />
       </div>
     </Fragment>

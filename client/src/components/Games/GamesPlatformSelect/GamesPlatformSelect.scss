@@ -1,12 +1,13 @@
 .Homepage-games {
   .Homepage-games-select {
-    margin: 1rem 2rem 0;
-    width: 15rem;
+    margin: 1rem;
+    width: 11rem;
 
     .MuiFormLabel-root {
       color: white;
       font-weight: bold;
     }
+    
 
     &__dropdown {
       color: white;
@@ -14,6 +15,10 @@
 
       .MuiSelect-icon {
         color: white;
+      }
+
+      .MuiSelect-select {
+        padding-right: 1rem;
       }
 
       &:before {

@@ -15,7 +15,7 @@ import {
   gamesCRUDType
 } from "../../reducers/gameReducer";
 
-export const GameForm = () => {
+export const GameForm = ({BEM_BASE}) => {
   const { pending, error, message, type } = useSelector(state => ({
     pending: gamesCRUDPending(state),
     error: gamesCRUDError(state),
@@ -103,7 +103,7 @@ export const GameForm = () => {
   };
 
   return (
-    <section>
+    <div className={`${BEM_BASE}-form`}>
       <form
         autoComplete="off"
         className="game-form"
@@ -145,6 +145,6 @@ export const GameForm = () => {
         <input type="submit" disabled={disabled} />
       </form>
       {showMessage && renderMessages()}
-    </section>
+    </div>
   );
 };
