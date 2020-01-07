@@ -32,3 +32,23 @@ export const apiGET = (dispatch, pendingAction, successAction, errorAction, url)
         dispatch(errorAction(error.response));
     })
   };
+
+  export const apiDELETE = (dispatch, pendingAction, successAction, errorAction, id ) => {
+    dispatch(pendingAction());
+    axios
+      .delete(`${API_BASE}/game/${id}`)
+      .then(res => {
+
+        if (res.error) {
+          throw res.error;
+        }
+
+        console.log("API DELETE RES", res)
+        
+        dispatch(successAction(res.data[url]));
+        return res.data[url];
+      })
+      .catch(error => {
+        dispatch(errorAction(error.response));
+      });
+  };

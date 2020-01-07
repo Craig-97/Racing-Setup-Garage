@@ -7,7 +7,7 @@ const path = require("path");
 const config = require("./webpack-dev-config.js");
 
 // Change port to suit your preference
-const Port = 3000;
+const Port = 8000;
 const Host = "localhost";
 
 const options = {
@@ -32,7 +32,7 @@ const options = {
   // directory will force the page to reload.
   watchContentBase: true,
   after() {
-    process.stdout.write(`dev server is running: http://${Host}:${Port}\n`);
+    process.stdout.write(`Dev server is running: http://${Host}:${Port}\n`);
   }
 };
 

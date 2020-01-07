@@ -1,23 +1,21 @@
-import React, { Fragment } from 'react';
-import { hot } from 'react-hot-loader';
-import { Navbar } from '../../components/Navbar';
-import { GameForm } from '../../components/Forms';
+import React, { Fragment } from "react";
+import { hot } from "react-hot-loader";
 
-import './Manage.scss';
+import { Navbar, GameManagement } from "../../components";
+
+import "./Manage.scss";
 
 const Manage = () => {
-  const BEM_BASE = 'Addpage';
+  const BEM_BASE = "Addpage";
 
   return (
     <Fragment>
       <Navbar />
       <div className={`${BEM_BASE} page-container`}>
-        <h1 className={`${BEM_BASE}-header`}>Games Form</h1>
-
-          <GameForm />
+        <GameManagement BEM_BASE={BEM_BASE} />
       </div>
     </Fragment>
   );
 };
 
-export default hot(module)(Manage)
+export default hot(module)(Manage);

@@ -47,3 +47,28 @@ export const addGameError = (error) => {
         error: {...error.data}
     }
 }
+
+//DELETE GAME
+export const DELETE_GAME_PENDING = 'DELETE_GAME_PENDING';
+export const DELETE_GAME_SUCCESS = 'DELETE_GAME_SUCCESS';
+export const DELETE_GAME_ERROR = 'DELETE_GAME_ERROR';
+
+export const deleteGamePending = () => {
+    return {
+        type: DELETE_GAME_PENDING
+    }
+}
+
+export const deleteGameSuccess = (game) => {
+    return {
+        type: DELETE_GAME_SUCCESS,
+        payload: game
+    }
+}
+
+export const deleteGameError = (error) => {
+    return {
+        type: DELETE_GAME_ERROR,
+        error: {...error.data}
+    }
+}

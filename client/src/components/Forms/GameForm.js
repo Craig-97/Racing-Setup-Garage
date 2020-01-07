@@ -1,25 +1,21 @@
-import React, { Fragment, useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { Fragment, useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import TextField from '@material-ui/core/TextField';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import { KeyboardDatePicker } from '@material-ui/pickers';
+import TextField from "@material-ui/core/TextField";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { Datepicker, MultiSelect } from "../Controls";
 
-import moment from 'moment'
-
-import { addGame } from '../../api'
-import { useForm, Controller } from 'react-hook-form';
+import { addGame } from "../../api";
+import { useForm, Controller } from "react-hook-form";
 
 import {
   gamesCRUDPending,
   gamesCRUDError,
   gamesCRUDMessage,
   gamesCRUDType
-} from '../../reducers/gameReducer';
+} from "../../reducers/gameReducer";
 
-export const GameForm = () => {
+export const GameForm = ({BEM_BASE}) => {
   const { pending, error, message, type } = useSelector(state => ({
     pending: gamesCRUDPending(state),
     error: gamesCRUDError(state),
@@ -31,7 +27,6 @@ export const GameForm = () => {
   const SHOW_MESSAGE_DISPLAY_TIME = 5000;
   const [showMessage, setShowMessage] = useState(false);
   const [showMessageType, setShowMessageType] = useState(null);
-  const [selectedDate, setSelectedDate] = useState(new moment());
   const {
     register,
     handleSubmit,
@@ -40,21 +35,21 @@ export const GameForm = () => {
     formState,
     control
   } = useForm();
-  let disabled = showMessageType === 'pending';
+  let disabled = showMessageType === "pending";
 
   useEffect(() => {
     if (!pending && message && showMessage) {
       // Success
-      setShowMessageType('success');
+      setShowMessageType("success");
       hideMessageTimeout();
       resetForm();
-    } else if (!pending && error && type === 'ADD' && showMessage) {
+    } else if (!pending && error && type === "ADD" && showMessage) {
       // Error
-      setShowMessageType('error');
+      setShowMessageType("error");
       hideMessageTimeout();
-    } else if (pending && type === 'ADD') {
+    } else if (pending && type === "ADD") {
       // Pending
-      setShowMessageType('pending');
+      setShowMessageType("pending");
     }
     // eslint-disable-next-line
   }, [pending, error, message, type]);
@@ -89,79 +84,67 @@ export const GameForm = () => {
 
   const renderMessages = () => {
     return (
-      <div className='game-form__messages'>
-        {showMessageType === 'pending' && (
+      <div className="game-form__messages">
+        {showMessageType === "pending" && (
           <Fragment>
             <CircularProgress size={100} /> <h2>ADDING GAME</h2>
           </Fragment>
         )}
-        {showMessageType === 'error' && (
+        {showMessageType === "error" && (
           <>
             <h2>{error.message}</h2>
             <h4>{error.error.name}</h4>
             <h5>{error.error.message}</h5>
           </>
         )}
-        {showMessageType === 'success' && <h2>{message}</h2>}
+        {showMessageType === "success" && <h2>{message}</h2>}
       </div>
     );
   };
 
   return (
-    <section>
+    <div className={`${BEM_BASE}-form`}>
       <form
-        autoComplete='off'
-        className='game-form'
+        autoComplete="off"
+        className="game-form"
         onSubmit={handleSubmit(onSubmit)}
       >
         <label>Name</label>
         <TextField
-          name='name'
-          autoComplete='off'
+          name="name"
+          autoComplete="off"
           inputRef={register({ required: true, maxLength: 80 })}
           disabled={disabled}
         />
         {errors.name && <p>Name is required</p>}
+
         <label>Platform</label>
-        <Controller
-          as={
-            <Select disabled={disabled} multiple>
-              <MenuItem value={'PC'}>PC</MenuItem>
-              <MenuItem value={'Playstation'}>Playstation</MenuItem>
-              <MenuItem value={'Xbox'}>Xbox</MenuItem>
-            </Select>
-          }
-          name='platform'
+        <MultiSelect
+          name={"platform"}
+          options={["PC", "Playstation", "Xbox"]}
+          disabled={disabled}
+          Controller={Controller}
           control={control}
-          defaultValue={['PC', 'Playstation', 'Xbox']}
         />
         {errors.platform && <p>At least one Platform is required</p>}
+
         <label>Image URL</label>
+        <TextField name="imageURL" inputRef={register} disabled={disabled} />
 
-        <TextField name='imageURL' inputRef={register} disabled={disabled} />
         <label>Developer</label>
+        <TextField name="developer" inputRef={register} disabled={disabled} />
 
-        <TextField name='developer' inputRef={register} disabled={disabled} />
         <label>Release Date</label>
-
-        <Controller
-          as={
-            <KeyboardDatePicker
-              clearable
-              placeholder='01/01/2020'
-              onChange={date => setSelectedDate(date)}
-              minDate={new Date()}
-              format={'DD/MM/YYYY'}
-            />
-          }
-          name='releaseDate'
+        <Datepicker
+          name={"releaseDate"}
+          disabled={disabled}
+          Controller={Controller}
           control={control}
-          defaultValue={selectedDate}
         />
 
-        <input type='submit' disabled={disabled} />
+        <input type="submit" disabled={disabled} />
       </form>
       {showMessage && renderMessages()}
-    </section>
+    </div>
   );
 };

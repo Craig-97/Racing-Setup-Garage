@@ -1,19 +1,23 @@
 .Homepage-games {
-    .Game-card {
-        display: inline-block;
-        margin: 2rem;
-        text-align: center;
-        max-width: 15rem;
-    
-        &__image {
-            max-height: 20rem;
-            width: 100%;
-        }
+  .Game-card {
+    display: inline-block;
+    margin: 1rem 1rem 0;
+    text-align: center;
+    max-width: 11rem;
 
-        .MuiTypography-gutterBottom {
-            text-overflow: ellipsis;
-            overflow: hidden;
-            white-space: nowrap;
-        }
+    &__image {
+      max-height: 14rem;
+      width: 100%;
     }
+
+    .MuiCardContent-root {
+      padding: 0.5rem;
+    }
+
+    .MuiTypography-gutterBottom {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  }
 }

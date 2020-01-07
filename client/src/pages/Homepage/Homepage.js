@@ -1,12 +1,11 @@
-import React, { Fragment } from 'react';
-import { hot } from 'react-hot-loader';
-import { Navbar } from '../../components/Navbar';
-import { GamesList } from '../../components/Games/GamesList';
+import React, { Fragment } from "react";
+import { hot } from "react-hot-loader";
+import { Navbar, GamesList } from "../../components";
 
-import './Homepage.scss';
+import "./Homepage.scss";
 
 const Homepage = () => {
-  const BEM_BASE = 'Homepage';
+  const BEM_BASE = "Homepage";
 
   return (
     <Fragment>

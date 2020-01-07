@@ -1,11 +1,14 @@
-import React from 'react';
+import React from "react";
 
-import { GamesNameSearch } from '../GamesNameSearch';
-import { GamesPlatformSelect } from '../GamesPlatformSelect';
+import { GamesNameSearch, GamesPlatformSelect } from "../index";
 
-import './GamesHeader.scss';
+import "./GamesHeader.scss";
 
-export const GamesHeader = ({ BEM_BASE, updateFilteredGames, filteredGames }) => {
+export const GamesHeader = ({
+  BEM_BASE,
+  updateFilteredGames,
+  filteredGames
+}) => {
   return (
     <>
       <h1 className={`${BEM_BASE}-games__header`}>Games</h1>

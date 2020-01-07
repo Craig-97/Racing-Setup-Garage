@@ -1,6 +1,6 @@
 .Homepage-games-search {
-  margin: 1rem 2rem 0;
-  width: 15rem;
+  margin: 1rem;
+  width: 11em;
 
   .MuiFormLabel-root {
     color: white;
@@ -13,6 +13,7 @@
 
   &__textfield {
     .MuiInputBase-root {
+      padding-right: 1.5rem;
       color: white;
       
       &:before {
