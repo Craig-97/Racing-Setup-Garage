@@ -39,7 +39,7 @@ export const GameManagement = ({ BEM_BASE }) => {
   }, [games]);
 
   const deleteGame = rowData => {
-    confirm('You want to delete ' + rowData);
+    confirm('You want to delete ' + rowData.name);
   };
 
   return (
