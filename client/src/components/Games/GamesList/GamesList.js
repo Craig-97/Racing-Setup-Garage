@@ -57,7 +57,7 @@ export const GamesList = ({ BEM_BASE }) => {
         gameCards.push(<GameCard game={game} key={index} />)
       );
 
-      return gameCards;
+      return <div className={`${BEM_BASE}-games__cards`}>{gameCards}</div>;
     }
   };
 

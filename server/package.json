@@ -8,7 +8,7 @@
     "start": "node server.js",
     "server": "nodemon server.js",
     "client": "npm start --prefix ../client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\" \"start http://localhost:8000\""
   },
   "dependencies": {
     "body-parser": "^1.19.0",

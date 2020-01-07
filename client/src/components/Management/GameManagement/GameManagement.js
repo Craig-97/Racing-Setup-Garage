@@ -71,7 +71,9 @@ export const GameManagement = ({ BEM_BASE }) => {
               onClick: (event, rowData) => deleteGame(rowData)
             }
           ]}
+          
           options={{
+            pageSize: 8,
             actionsColumnIndex: -1
           }}
         />

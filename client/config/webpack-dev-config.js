@@ -11,7 +11,7 @@ const paths = require("./paths");
 const common = require("./webpack-common-config.js");
 
 module.exports = merge(common, {
-  entry: [paths.appIndexJs],
+  entry: [paths.appIndexJs, paths.appIndexScss],
   mode: "development",
   // devtool option controls if and how source maps are generated.
   // see https://webpack.js.org/configuration/devtool/
@@ -44,9 +44,48 @@ module.exports = merge(common, {
         },
       },
       {
-        test: /\.s?css$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        test: /\.css$/,
+        use: [
+         'style-loader',
+         {
+           loader: "css-loader",
+           options: {
+             modules: true,
+             importLoaders: 1
+           }
+         }
+        ]
       },
+      {
+          test: /\.scss$/,
+          exclude: /node_modules/,
+          use: [
+            'style-loader',
+            {loader: 'css-loader',
+              options: {
+                importLoaders: 1
+              }
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                plugins: function () {
+                  return [
+                    require('postcss-smart-import'),
+                    require('precss'),
+                    require('autoprefixer')
+                  ];
+                }
+              }
+            },
+            {
+              loader: 'sass-loader',
+              options: {
+                includePaths: [path.resolve(__dirname, "../src/styles")]
+              }
+            }
+          ]
+      }
     ],
   },
 });
