@@ -5,7 +5,7 @@
 How to run:
   - cd server
   - yarn run dev
-  - visit localhost:3000
+  - visit localhost:8000
   
 This will run the API and webpack dev server
 
