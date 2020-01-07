@@ -6,8 +6,7 @@ import { getGames, gamesCRUDPending } from '../../../reducers/gameReducer';
 import { resultsFilterer } from '../../../util';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import { GameCard } from '../GameCard';
-import { GamesHeader } from '../GamesHeader';
+import { GameCard, GamesHeader } from '../index';
 
 import './GamesList.scss';
 
