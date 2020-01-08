@@ -48,7 +48,13 @@
   }
   
   @mixin grid-justify-self($value) {
-    -ms-grid-column-align: $value;
+    @if $value == "left" {
+      -ms-grid-column-align: start;
+    } @else if $value == "right" {
+      -ms-grid-column-align: end;
+    } @else {
+      -ms-grid-column-align: $value;
+    }
     justify-self: $value;
   }
   

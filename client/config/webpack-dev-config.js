@@ -57,34 +57,24 @@ module.exports = merge(common, {
         ]
       },
       {
-          test: /\.scss$/,
-          exclude: /node_modules/,
-          use: [
-            'style-loader',
-            {loader: 'css-loader',
-              options: {
-                importLoaders: 1
-              }
-            },
-            {
-              loader: 'postcss-loader',
-              options: {
-                plugins: function () {
-                  return [
-                    require('postcss-smart-import'),
-                    require('precss'),
-                    require('autoprefixer')
-                  ];
-                }
-              }
-            },
-            {
-              loader: 'sass-loader',
-              options: {
-                includePaths: [path.resolve(__dirname, "../src/styles")]
-              }
+        test: /\.scss$/,
+        use: [
+          {
+            loader: "style-loader"
+          },
+          {
+            loader: "css-loader"
+          },
+          {
+            loader: "sass-loader"
+          },
+          {
+            loader: "sass-resources-loader",
+            options: {
+              resources: require(path.join(process.cwd(), "./src/styles/utils.js"))
             }
-          ]
+          }
+        ]
       }
     ],
   },

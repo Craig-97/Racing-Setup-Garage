@@ -56,9 +56,25 @@ module.exports = merge(common, {
         },
       },
       {
-        test: /\.s?css$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
-      },
+        test: /\.scss$/,
+        use: [
+          {
+            loader: "style-loader"
+          },
+          {
+            loader: "css-loader"
+          },
+          {
+            loader: "sass-loader"
+          },
+          {
+            loader: "sass-resources-loader",
+            options: {
+              resources: require(path.join(process.cwd(), "./src/styles/utils.js"))
+            }
+          }
+        ]
+      }
     ],
   },
 });
