@@ -15,7 +15,7 @@ import {
   gamesCRUDType
 } from "../../reducers/gameReducer";
 
-export const GameForm = ({BEM_BASE}) => {
+export const GameForm = ({ BEM_BASE, game }) => {
   const { pending, error, message, type } = useSelector(state => ({
     pending: gamesCRUDPending(state),
     error: gamesCRUDError(state),
@@ -27,15 +27,17 @@ export const GameForm = ({BEM_BASE}) => {
   const SHOW_MESSAGE_DISPLAY_TIME = 5000;
   const [showMessage, setShowMessage] = useState(false);
   const [showMessageType, setShowMessageType] = useState(null);
+  let disabled = showMessageType === "pending";
+
   const {
     register,
     handleSubmit,
     reset,
     errors,
     formState,
-    control
+    control,
+    setValue
   } = useForm();
-  let disabled = showMessageType === "pending";
 
   useEffect(() => {
     if (!pending && message && showMessage) {
@@ -53,6 +55,16 @@ export const GameForm = ({BEM_BASE}) => {
     }
     // eslint-disable-next-line
   }, [pending, error, message, type]);
+
+  useEffect(() => {
+    if (game) {
+      setValue("name", game.name);
+      setValue("platform", game.platform);
+      setValue("imageURL", game.imageURL);
+      setValue("developer", game.developer);
+      setValue("releaseDate", game.releaseDate);
+    }
+  }, [game]);
 
   const onSubmit = data => {
     if (data) {

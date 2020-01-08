@@ -16,7 +16,7 @@ export const Datepicker = ({name, disabled, Controller, control}) => {
         disabled={disabled}
         placeholder={selectedDate.toString()}
         onChange={date => setSelectedDate(date)}
-        minDate={new Date()}
+        minDate={new Date('01/01/1900')}
         format={'DD/MM/YYYY'}
       />
     }
