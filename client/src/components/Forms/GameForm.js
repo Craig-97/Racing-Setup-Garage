@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Datepicker, MultiSelect } from '../Controls';
 
-import { addGame, updateGame, deleteGame } from '../../api';
+import { addGame, updateGame } from '../../api';
 import { useForm, Controller } from 'react-hook-form';
 
 import {
