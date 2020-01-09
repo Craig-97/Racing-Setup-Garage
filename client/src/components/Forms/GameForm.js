@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Datepicker, MultiSelect } from '../Controls';
 
-import { addGame } from '../../api';
+import { addGame, updateGame, deleteGame } from '../../api';
 import { useForm, Controller } from 'react-hook-form';
 
 import {
@@ -15,7 +15,13 @@ import {
   gamesCRUDType
 } from '../../reducers/gameReducer';
 
-export const GameForm = ({ BEM_BASE, game }) => {
+export const GameForm = ({
+  BEM_BASE,
+  game,
+  showMessage,
+  hideMessageTimeout,
+  setShowMessage
+}) => {
   const { pending, error, message, type } = useSelector(state => ({
     pending: gamesCRUDPending(state),
     error: gamesCRUDError(state),
@@ -24,10 +30,9 @@ export const GameForm = ({ BEM_BASE, game }) => {
   }));
 
   const dispatch = useDispatch();
-  const SHOW_MESSAGE_DISPLAY_TIME = 5000;
-  const [showMessage, setShowMessage] = useState(false);
   const [showMessageType, setShowMessageType] = useState(null);
   let disabled = showMessageType === 'pending';
+  let validType = type === 'ADD' || type === 'UPDATE' || type === 'DELETE';
 
   const {
     register,
@@ -45,11 +50,11 @@ export const GameForm = ({ BEM_BASE, game }) => {
       setShowMessageType('success');
       hideMessageTimeout();
       resetForm();
-    } else if (!pending && error && type === 'ADD' && showMessage) {
+    } else if (!pending && error && showMessage && validType) {
       // Error
       setShowMessageType('error');
       hideMessageTimeout();
-    } else if (pending && type === 'ADD') {
+    } else if (pending && validType) {
       // Pending
       setShowMessageType('pending');
     }
@@ -72,13 +77,17 @@ export const GameForm = ({ BEM_BASE, game }) => {
     if (data) {
       const submitData = formatData(data);
       setShowMessage(true);
-      dispatch(addGame(submitData));
+      if (game) {
+        dispatch(updateGame(game._id, submitData));
+      } else {
+        dispatch(addGame(submitData));
+      }
     }
   };
 
   const formatData = data => {
     // Format Date
-    if (data.releaseDate) {
+    if (data.releaseDate && data.releaseDate.toDate) {
       data.releaseDate = data.releaseDate.toDate();
     }
     return data;
@@ -90,18 +99,17 @@ export const GameForm = ({ BEM_BASE, game }) => {
     }
   };
 
-  const hideMessageTimeout = () => {
-    setTimeout(() => {
-      setShowMessage(false);
-    }, SHOW_MESSAGE_DISPLAY_TIME);
-  };
-
   const renderMessages = () => {
     return (
       <div className='game-form__messages'>
         {showMessageType === 'pending' && (
           <Fragment>
-            <CircularProgress size={100} /> <h2>ADDING GAME</h2>
+            <CircularProgress size={100} />
+            <h2>
+              {type === 'ADD' && 'Adding Game'}
+              {type === 'UPDATE' && 'Updating Game'}
+              {type === 'DELETE' && 'Deleting Game'}
+            </h2>
           </Fragment>
         )}
         {showMessageType === 'error' && (

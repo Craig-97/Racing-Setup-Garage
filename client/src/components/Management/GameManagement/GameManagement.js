@@ -11,8 +11,10 @@ import './GameManagement.scss';
 
 export const GameManagement = ({ BEM_BASE }) => {
   const dispatch = useDispatch();
+  const SHOW_MESSAGE_DISPLAY_TIME = 5000;
   const [gameData, setGameData] = useState([]);
   const [editGameObj, setEditGameObj] = useState(null);
+  const [showMessage, setShowMessage] = useState(false);
 
   const { games, isLoading } = useSelector(state => ({
     games: getGames(state),
@@ -39,13 +41,27 @@ export const GameManagement = ({ BEM_BASE }) => {
     }
   }, [games]);
 
-  const deleteGame = rowData => {
-    confirm('You want to delete ' + rowData.name);
+  const hideMessageTimeout = () => {
+    setTimeout(() => {
+      setShowMessage(false);
+    }, SHOW_MESSAGE_DISPLAY_TIME);
+  };
+
+  const deleteGameById = rowData => {
+    if (rowData && rowData._id) {
+      setShowMessage(true);
+
+      if (editGameObj._id === rowData._id) {
+        setEditGameObj(null);
+      }
+
+      dispatch(deleteGame(rowData._id));
+    }
   };
 
   const editGame = rowData => {
-    const { name, platform, imageURL, developer, releaseDate } = rowData;
-    const game = { name, platform, imageURL, developer, releaseDate };
+    const { _id, name, platform, imageURL, developer, releaseDate } = rowData;
+    const game = { _id, name, platform, imageURL, developer, releaseDate };
 
     if (game.platform) {
       game.platform = game.platform.split(', ');
@@ -58,7 +74,13 @@ export const GameManagement = ({ BEM_BASE }) => {
     <Fragment>
       <h1 className={`${BEM_BASE}-header`}>Games Form</h1>
 
-      <GameForm BEM_BASE={BEM_BASE} game={editGameObj} />
+      <GameForm
+        BEM_BASE={BEM_BASE}
+        game={editGameObj}
+        setShowMessage={value => setShowMessage(value)}
+        showMessage={showMessage}
+        hideMessageTimeout={hideMessageTimeout}
+      />
       <div className={`${BEM_BASE}-table`}>
         <MaterialTable
           columns={[
@@ -78,7 +100,7 @@ export const GameManagement = ({ BEM_BASE }) => {
             {
               icon: 'delete',
               tooltip: 'Delete Game',
-              onClick: (event, rowData) => deleteGame(rowData)
+              onClick: (event, rowData) => deleteGameById(rowData)
             }
           ]}
           options={{

@@ -16,7 +16,8 @@ export const apiGET = (dispatch, pendingAction, successAction, errorAction, url)
         dispatch(errorAction(error.response));
     })
   };
-
+  
+  
   export const apiPOST = (dispatch, pendingAction, successAction, errorAction, url, object)  => {
     dispatch(pendingAction());
     axios
@@ -33,18 +34,32 @@ export const apiGET = (dispatch, pendingAction, successAction, errorAction, url)
     })
   };
 
-  export const apiDELETE = (dispatch, pendingAction, successAction, errorAction, id ) => {
+  
+  export const apiPUT = (dispatch, pendingAction, successAction, errorAction, url, id, object)  => {
     dispatch(pendingAction());
     axios
-      .delete(`${API_BASE}/game/${id}`)
+      .put(`${API_BASE}/${url}/${id}`, object)
       .then(res => {
+            if(res.error) {
+                throw(res.error);
+            }
+            dispatch(successAction(res.data[url]));
+            return res.data[url];
+      })
+      .catch(error => {
+        dispatch(errorAction(error.response));
+    })
+  };
 
+
+  export const apiDELETE = (dispatch, pendingAction, successAction, errorAction, url, id ) => {
+    dispatch(pendingAction());
+    axios
+      .delete(`${API_BASE}/${url}/${id}`)
+      .then(res => {
         if (res.error) {
           throw res.error;
         }
-
-        console.log("API DELETE RES", res)
-        
         dispatch(successAction(res.data[url]));
         return res.data[url];
       })
