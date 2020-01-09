@@ -51,7 +51,7 @@ export const GameManagement = ({ BEM_BASE }) => {
     if (rowData && rowData._id) {
       setShowMessage(true);
 
-      if (editGameObj._id === rowData._id) {
+      if (editGameObj && editGameObj._id === rowData._id) {
         setEditGameObj(null);
       }
 
