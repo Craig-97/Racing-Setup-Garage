@@ -13,7 +13,7 @@ export const Navbar = () => {
     <AppBar className='Navbar' position='sticky'>
       <Toolbar>
         <Typography variant='h1'>Racing Setup Garage</Typography>
-        <div className="Navbar-links">
+        <div className="Navbar__links">
         <ul>
           <li>
             <Link to='/'>Home</Link>

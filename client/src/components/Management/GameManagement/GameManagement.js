@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import MaterialTable from 'material-table';
@@ -11,22 +11,31 @@ import './GameManagement.scss';
 
 export const GameManagement = ({ BEM_BASE }) => {
   const dispatch = useDispatch();
-  const SHOW_MESSAGE_DISPLAY_TIME = 5000;
   const [gameData, setGameData] = useState([]);
   const [editGameObj, setEditGameObj] = useState(null);
   const [showMessage, setShowMessage] = useState(false);
+  const messageTimeoutRef = useRef(false);
+  const SHOW_MESSAGE_DISPLAY_TIME = 5000;
 
   const { games, isLoading } = useSelector(state => ({
     games: getGames(state),
     isLoading: gamesCRUDPending(state)
   }));
 
+  /* FETCHES GAMES IF NONE IN STORE */
   useEffect(() => {
     if (!games || !games.length) {
       dispatch(fetchGames());
     }
-  }, [dispatch]);
 
+    return () => {
+      if (messageTimeoutRef) {
+        clearInterval(messageTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  /* FORMATS GAMEDATA FOR TABLE DISPLAY */
   useEffect(() => {
     let newGames = [...games];
 
@@ -41,24 +50,29 @@ export const GameManagement = ({ BEM_BASE }) => {
     }
   }, [games]);
 
-  const hideMessageTimeout = () => {
-    setTimeout(() => {
+  /* HIDES CURRENT MESSAGE AFTER 5 SECONDS */
+  const hideMessage = () => {
+    if (messageTimeoutRef) {
+      clearTimeout(messageTimeoutRef.current);
+    }
+    messageTimeoutRef.current = setTimeout(() => {
       setShowMessage(false);
     }, SHOW_MESSAGE_DISPLAY_TIME);
   };
 
-  const deleteGameById = rowData => {
+  /* DELETES GAME USING ID FROM TABLE DATA */
+  const removeGame = rowData => {
     if (rowData && rowData._id) {
       setShowMessage(true);
 
       if (editGameObj && editGameObj._id === rowData._id) {
         setEditGameObj(null);
       }
-
       dispatch(deleteGame(rowData._id));
     }
   };
 
+  /* ON EDIT CLICK OF TABLE ROW, GAME CLICKED IS SENT TO FORM */
   const editGame = rowData => {
     const { _id, name, platform, imageURL, developer, releaseDate } = rowData;
     const game = { _id, name, platform, imageURL, developer, releaseDate };
@@ -66,7 +80,6 @@ export const GameManagement = ({ BEM_BASE }) => {
     if (game.platform) {
       game.platform = game.platform.split(', ');
     }
-
     setEditGameObj(game);
   };
 
@@ -77,9 +90,9 @@ export const GameManagement = ({ BEM_BASE }) => {
       <GameForm
         BEM_BASE={BEM_BASE}
         game={editGameObj}
-        setShowMessage={value => setShowMessage(value)}
         showMessage={showMessage}
-        hideMessageTimeout={hideMessageTimeout}
+        setShowMessage={() => setShowMessage(true)}
+        hideMessage={hideMessage}
       />
       <div className={`${BEM_BASE}-table`}>
         <MaterialTable
@@ -100,7 +113,7 @@ export const GameManagement = ({ BEM_BASE }) => {
             {
               icon: 'delete',
               tooltip: 'Delete Game',
-              onClick: (event, rowData) => deleteGameById(rowData)
+              onClick: (event, rowData) => removeGame(rowData)
             }
           ]}
           options={{
