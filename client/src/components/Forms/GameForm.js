@@ -19,7 +19,7 @@ export const GameForm = ({
   BEM_BASE,
   game,
   showMessage,
-  hideMessageTimeout,
+  hideMessage,
   setShowMessage
 }) => {
   const { pending, error, message, type } = useSelector(state => ({
@@ -44,16 +44,17 @@ export const GameForm = ({
     setValue
   } = useForm();
 
+  /* DISPLAYS CURRENT API REQUEST STATUS & RESETS FORM WHEN SUCCESSFUL */
   useEffect(() => {
     if (!pending && message && showMessage) {
       // Success
       setShowMessageType('success');
-      hideMessageTimeout();
+      hideMessage();
       resetForm();
     } else if (!pending && error && showMessage && validType) {
       // Error
       setShowMessageType('error');
-      hideMessageTimeout();
+      hideMessage();
     } else if (pending && validType) {
       // Pending
       setShowMessageType('pending');
@@ -61,6 +62,7 @@ export const GameForm = ({
     // eslint-disable-next-line
   }, [pending, error, message, type]);
 
+  /* UPDATES FIELD VALUES BASED ON GAME PROP CHANGES */
   useEffect(() => {
     if (game) {
       setValue('name', game.name);
@@ -73,10 +75,19 @@ export const GameForm = ({
     }
   }, [game]);
 
+  /* FORMATS GAME DATA BEFORE API REQUEST */
+  const formatData = data => {
+    if (data.releaseDate && data.releaseDate.toDate) {
+      data.releaseDate = data.releaseDate.toDate();
+    }
+    return data;
+  };
+
+  /* UPDATES OR ADDS GAME ON SUBMIT DEPENDING ON GAME PROP */
   const onSubmit = data => {
     if (data) {
       const submitData = formatData(data);
-      setShowMessage(true);
+      setShowMessage();
       if (game) {
         dispatch(updateGame(game._id, submitData));
       } else {
@@ -85,21 +96,21 @@ export const GameForm = ({
     }
   };
 
-  const formatData = data => {
-    // Format Date
-    if (data.releaseDate && data.releaseDate.toDate) {
-      data.releaseDate = data.releaseDate.toDate();
-    }
-    return data;
-  };
-
+  /* RESETS FORM IF FORM STATE IS DIRTY & FORM SUBMITTED SUCCESSFULLY */
   const resetForm = () => {
     if (formState && formState.dirty && formState.isSubmitted) {
       reset();
     }
   };
 
+  /* RENDERS MESSAGES BASED ON CURRENT MESSAGE TYPE */
   const renderMessages = () => {
+    let errorHeader, errorName, errorMsg = '';
+    if (error && error.error) {
+      errorHeader = error.message;
+      errorName = error.error.name;
+      errorMsg = error.error.message
+    }
     return (
       <div className='game-form__messages'>
         {showMessageType === 'pending' && (
@@ -113,11 +124,11 @@ export const GameForm = ({
           </Fragment>
         )}
         {showMessageType === 'error' && (
-          <>
-            <h2>{error.message}</h2>
-            <h4>{error.error.name}</h4>
-            <h5>{error.error.message}</h5>
-          </>
+          <Fragment>
+            <h2>{errorHeader}</h2>
+            <h4>{errorName}</h4>
+            <h5>{errorMsg}</h5>
+          </Fragment>
         )}
         {showMessageType === 'success' && <h2>{message}</h2>}
       </div>
