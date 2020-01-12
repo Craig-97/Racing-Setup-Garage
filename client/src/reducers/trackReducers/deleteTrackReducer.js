@@ -1,12 +1,12 @@
 import {
-  DELETE_GAME_PENDING,
-  DELETE_GAME_SUCCESS,
-  DELETE_GAME_ERROR
-} from '../actions/gameActions';
+  DELETE_TRACK_PENDING,
+  DELETE_TRACK_SUCCESS,
+  DELETE_TRACK_ERROR
+} from '../../actions/trackActions';
 
-export default function(state, action) {
+export const deleteTrackReducer = (state, action) => {
   switch (action.type) {
-    case DELETE_GAME_PENDING:
+    case DELETE_TRACK_PENDING:
       return {
         ...state,
         CRUD: {
@@ -14,7 +14,7 @@ export default function(state, action) {
           pending: true
         }
       };
-    case DELETE_GAME_SUCCESS:
+    case DELETE_TRACK_SUCCESS:
       return {
         ...state,
         CRUD: {
@@ -23,7 +23,7 @@ export default function(state, action) {
           message: `${action.payload.name} Successfully Deleted`
         }
       };
-    case DELETE_GAME_ERROR:
+    case DELETE_TRACK_ERROR:
       return {
         ...state,
         CRUD: {
@@ -37,9 +37,9 @@ export default function(state, action) {
   }
 }
 
-export const deleteGameFromStore = (state, action) => {
+export const deleteTrackFromStore = (state, action) => {
   return {
     ...state,
-    data: state.data.filter(game => game._id !== action.payload._id)
+    data: state.data.filter(track => track._id !== action.payload._id)
   };
 };

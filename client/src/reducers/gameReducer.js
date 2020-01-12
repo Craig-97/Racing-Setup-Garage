@@ -7,10 +7,15 @@ import {
   DELETE_GAME_SUCCESS
 } from '../actions/gameActions';
 
+import {
+  addGameReducer,
+  updateGameReducer,
+  deleteGameReducer,
+  updateGameToStore,
+  deleteGameFromStore
+} from './gameReducers';
+
 import reduceReducers from 'reduce-reducers';
-import addGameReducer from './addGameReducer';
-import deleteGameReducer, { deleteGameFromStore } from './deleteGameReducer';
-import updateGameReducer, { updateGameToStore } from './updateGameReducer';
 
 const initialState = {
   data: [],

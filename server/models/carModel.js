@@ -7,12 +7,12 @@ const Car = new Schema(
   {
     name: {
       type: String,
-      required: 'Car name (name) required'
+      required: 'Car name required'
     },
     game: {
       type: Schema.Types.ObjectId,
       ref: 'Game',
-      required: 'Game ID (game_id) required'
+      required: 'Game ID required'
     },
     engine: {
       type: String

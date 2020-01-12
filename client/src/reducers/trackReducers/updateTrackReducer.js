@@ -1,12 +1,12 @@
 import {
-  UPDATE_GAME_PENDING,
-  UPDATE_GAME_SUCCESS,
-  UPDATE_GAME_ERROR
-} from '../actions/gameActions';
+  UPDATE_TRACK_PENDING,
+  UPDATE_TRACK_SUCCESS,
+  UPDATE_TRACK_ERROR
+} from '../../actions/trackActions';
 
-export default function(state, action) {
+export const updateTrackReducer = (state, action) => {
   switch (action.type) {
-    case UPDATE_GAME_PENDING:
+    case UPDATE_TRACK_PENDING:
       return {
         ...state,
         CRUD: {
@@ -14,7 +14,7 @@ export default function(state, action) {
           pending: true
         }
       };
-    case UPDATE_GAME_SUCCESS:
+    case UPDATE_TRACK_SUCCESS:
       return {
         ...state,
         CRUD: {
@@ -23,7 +23,7 @@ export default function(state, action) {
           message: `${action.payload.name} Successfully Updated`
         }
       };
-    case UPDATE_GAME_ERROR:
+    case UPDATE_TRACK_ERROR:
       return {
         ...state,
         CRUD: {
@@ -35,16 +35,16 @@ export default function(state, action) {
     default:
       return state;
   }
-}
+};
 
-export const updateGameToStore = (state, action) => {
+export const updateTrackToStore = (state, action) => {
   let updatedData = [...state.data];
 
-  updatedData = updatedData.map(game => {
-    if (game._id === action.payload._id) {
-      return game = action.payload;
+  updatedData = updatedData.map(track => {
+    if (track._id === action.payload._id) {
+      return (track = action.payload);
     } else {
-      return game
+      return track;
     }
   });
 
