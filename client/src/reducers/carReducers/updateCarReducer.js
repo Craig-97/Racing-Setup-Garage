@@ -2,7 +2,7 @@ import {
   UPDATE_CAR_PENDING,
   UPDATE_CAR_SUCCESS,
   UPDATE_CAR_ERROR
-} from '../../actions/carActions';
+} from '../../actions';
 
 export const updateCarReducer = (state, action) => {
   switch (action.type) {

@@ -2,7 +2,7 @@ import {
     DELETE_DRIVER_PENDING,
     DELETE_DRIVER_SUCCESS,
     DELETE_DRIVER_ERROR
-  } from '../../actions/driverActions';
+  } from '../../actions';
   
   export const deleteDriverReducer = (state, action) => {
     switch (action.type) {

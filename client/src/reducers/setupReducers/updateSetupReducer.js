@@ -2,7 +2,7 @@ import {
   UPDATE_SETUP_PENDING,
   UPDATE_SETUP_SUCCESS,
   UPDATE_SETUP_ERROR
-} from '../../actions/setupActions';
+} from '../../actions';
 
 export const updateSetupReducer = (state, action) => {
   switch (action.type) {

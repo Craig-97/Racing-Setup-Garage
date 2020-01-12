@@ -5,7 +5,7 @@ import {
   ADD_SETUP_SUCCESS,
   UPDATE_SETUP_SUCCESS,
   DELETE_SETUP_SUCCESS
-} from '../actions/setupActions';
+} from '../actions';
 
 import {
   addSetupReducer,

@@ -2,7 +2,7 @@ import {
   DELETE_CAR_PENDING,
   DELETE_CAR_SUCCESS,
   DELETE_CAR_ERROR
-} from '../../actions/carActions';
+} from '../../actions';
 
 export const deleteCarReducer = (state, action) => {
   switch (action.type) {

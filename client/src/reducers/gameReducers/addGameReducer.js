@@ -2,7 +2,7 @@ import {
     ADD_GAME_PENDING,
     ADD_GAME_SUCCESS,
     ADD_GAME_ERROR
-  } from '../../actions/gameActions';
+  } from '../../actions';
   
   export const addGameReducer = (state, action) => {
     switch (action.type) {

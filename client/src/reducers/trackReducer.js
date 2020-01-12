@@ -5,7 +5,7 @@ import {
   ADD_TRACK_SUCCESS,
   UPDATE_TRACK_SUCCESS,
   DELETE_TRACK_SUCCESS
-} from '../actions/trackActions';
+} from '../actions';
 
 import {
   addTrackReducer,
