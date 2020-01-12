@@ -2,7 +2,7 @@ import {
   DELETE_SETUP_PENDING,
   DELETE_SETUP_SUCCESS,
   DELETE_SETUP_ERROR
-} from '../../actions/setupActions';
+} from '../../actions';
 
 export const deleteSetupReducer = (state, action) => {
   switch (action.type) {

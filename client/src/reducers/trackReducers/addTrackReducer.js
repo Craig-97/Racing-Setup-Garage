@@ -2,7 +2,7 @@ import {
     ADD_TRACK_PENDING,
     ADD_TRACK_SUCCESS,
     ADD_TRACK_ERROR
-  } from '../../actions/trackActions';
+  } from '../../actions';
   
   export const addTrackReducer = (state, action) => {
     switch (action.type) {

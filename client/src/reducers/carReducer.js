@@ -5,7 +5,7 @@ import {
     ADD_CAR_SUCCESS,
     UPDATE_CAR_SUCCESS,
     DELETE_CAR_SUCCESS
-  } from '../actions/carActions';
+  } from '../actions';
   
   import {
     addCarReducer,

@@ -2,7 +2,7 @@ import {
   DELETE_TRACK_PENDING,
   DELETE_TRACK_SUCCESS,
   DELETE_TRACK_ERROR
-} from '../../actions/trackActions';
+} from '../../actions';
 
 export const deleteTrackReducer = (state, action) => {
   switch (action.type) {

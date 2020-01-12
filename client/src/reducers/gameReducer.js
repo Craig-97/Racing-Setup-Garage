@@ -5,7 +5,7 @@ import {
   ADD_GAME_SUCCESS,
   UPDATE_GAME_SUCCESS,
   DELETE_GAME_SUCCESS
-} from '../actions/gameActions';
+} from '../actions';
 
 import {
   addGameReducer,

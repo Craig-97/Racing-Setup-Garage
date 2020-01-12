@@ -5,7 +5,7 @@ import {
     ADD_DRIVER_SUCCESS,
     UPDATE_DRIVER_SUCCESS,
     DELETE_DRIVER_SUCCESS
-  } from '../actions/driverActions';
+  } from '../actions';
   
   import {
     addDriverReducer,

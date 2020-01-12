@@ -2,7 +2,7 @@ import {
     ADD_DRIVER_PENDING,
     ADD_DRIVER_SUCCESS,
     ADD_DRIVER_ERROR
-  } from '../../actions/driverActions';
+  } from '../../actions';
   
   export const addDriverReducer = (state, action) => {
     switch (action.type) {

@@ -2,7 +2,7 @@ import {
   DELETE_GAME_PENDING,
   DELETE_GAME_SUCCESS,
   DELETE_GAME_ERROR
-} from '../../actions/gameActions';
+} from '../../actions';
 
 export const deleteGameReducer = (state, action) => {
   switch (action.type) {

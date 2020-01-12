@@ -2,7 +2,7 @@ import {
   UPDATE_GAME_PENDING,
   UPDATE_GAME_SUCCESS,
   UPDATE_GAME_ERROR
-} from '../../actions/gameActions';
+} from '../../actions';
 
 export const updateGameReducer = (state, action) => {
   switch (action.type) {
