@@ -7,7 +7,7 @@ const Driver = new Schema(
   {
     first_name: {
       type: String,
-      required: 'First name (first_name) required'
+      required: 'First name required'
     },
     last_name: {
       type: String
@@ -25,7 +25,7 @@ const Driver = new Schema(
         'North America',
         'South America'
       ],
-      required: 'Region (region) required'
+      required: 'Region required'
     }
   },
   { timestamps: true }

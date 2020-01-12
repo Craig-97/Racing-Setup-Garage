@@ -7,15 +7,15 @@ const Track = new Schema(
   {
     circuit: {
       type: String,
-      required: 'Circuit name (circuit) required'
+      required: 'Circuit name required'
     },
     city: {
       type: String,
-      required: 'City (city) required'
+      required: 'City required'
     },
     country: {
       type: String,
-      required: 'Country (country) required'
+      required: 'Country required'
     },
     length: {
       type: Number,
@@ -28,7 +28,7 @@ const Track = new Schema(
     game: {
       type: Schema.Types.ObjectId,
       ref: 'Game',
-      required: 'Game ID (game_id) required'
+      required: 'Game ID required'
     },
   },
   { timestamps: true }
