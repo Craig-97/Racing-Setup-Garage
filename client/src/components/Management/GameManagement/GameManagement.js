@@ -37,7 +37,7 @@ export const GameManagement = ({ BEM_BASE }) => {
 
   /* FORMATS GAMEDATA FOR TABLE DISPLAY */
   useEffect(() => {
-    let newGames = [...games];
+    let newGames = JSON.parse(JSON.stringify(games));
 
     if (newGames && newGames.length) {
       newGames.forEach(game => {
