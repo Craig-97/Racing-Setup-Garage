@@ -85,8 +85,6 @@ export const GameManagement = ({ BEM_BASE }) => {
 
   return (
     <Fragment>
-      <h1 className={`${BEM_BASE}-header`}>Games Form</h1>
-
       <GameForm
         BEM_BASE={BEM_BASE}
         game={editGameObj}
@@ -94,7 +92,7 @@ export const GameManagement = ({ BEM_BASE }) => {
         setShowMessage={() => setShowMessage(true)}
         hideMessage={hideMessage}
       />
-      <div className={`${BEM_BASE}-table`}>
+      <div className={`${BEM_BASE}__table`}>
         <MaterialTable
           columns={[
             { title: 'Name', field: 'name' },

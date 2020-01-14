@@ -1,28 +1,19 @@
-import React, { useState } from "react";
-import moment from "moment";
+import React, { useState } from 'react';
+import moment from 'moment';
 
-import { KeyboardDatePicker } from "@material-ui/pickers";
+import { KeyboardDatePicker } from '@material-ui/pickers';
 
-import "./Datepicker.scss";
-
-export const Datepicker = ({name, disabled, Controller, control}) => {
+export const Datepicker = ({ disabled }) => {
   const [selectedDate, setSelectedDate] = useState(new moment());
 
   return (
-    <Controller
-    as={
-      <KeyboardDatePicker
-        clearable
-        disabled={disabled}
-        placeholder={selectedDate.toString()}
-        onChange={date => setSelectedDate(date)}
-        minDate={new Date('01/01/1900')}
-        format={'DD/MM/YYYY'}
-      />
-    }
-    name={name}
-    control={control}
-    defaultValue={selectedDate}
-  />
+    <KeyboardDatePicker
+      clearable
+      disabled={disabled}
+      placeholder={selectedDate.toString()}
+      onChange={date => setSelectedDate(date)}
+      minDate={new Date('01/01/1900')}
+      format={'DD/MM/YYYY'}
+    />
   );
 };
