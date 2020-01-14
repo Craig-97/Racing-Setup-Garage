@@ -1,6 +1,8 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import moment from 'moment';
+
 import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Datepicker, MultiSelect } from '../Controls';
@@ -105,11 +107,13 @@ export const GameForm = ({
 
   /* RENDERS MESSAGES BASED ON CURRENT MESSAGE TYPE */
   const renderMessages = () => {
-    let errorHeader, errorName, errorMsg = '';
+    let errorHeader,
+      errorName,
+      errorMsg = '';
     if (error && error.error) {
       errorHeader = error.message;
       errorName = error.error.name;
-      errorMsg = error.error.message
+      errorMsg = error.error.message;
     }
     return (
       <div className='game-form__messages'>
@@ -135,13 +139,11 @@ export const GameForm = ({
     );
   };
 
+  const options = ['PC', 'Playstation', 'Xbox']
+
   return (
-    <div className={`${BEM_BASE}-form`}>
-      <form
-        autoComplete='off'
-        className='game-form'
-        onSubmit={handleSubmit(onSubmit)}
-      >
+    <div className={`${BEM_BASE}__form`}>
+      <form autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
         <label>Name</label>
         <TextField
           name='name'
@@ -168,11 +170,11 @@ export const GameForm = ({
         <TextField name='developer' inputRef={register} disabled={disabled} />
 
         <label>Release Date</label>
-        <Datepicker
+        <Controller
+          as={<Datepicker disabled={disabled} />}
           name={'releaseDate'}
-          disabled={disabled}
-          Controller={Controller}
           control={control}
+          defaultValue={new moment()}
         />
 
         <input type='submit' disabled={disabled} />
