@@ -1,8 +1,8 @@
-.Homepage-games-search {
+.games-filters__search {
   margin: 1rem;
   width: 11rem;
 
-  .MuiFormLabel-root {
+  .filters-search__label {
     color: white;
     font-weight: bold;
   }
@@ -11,7 +11,7 @@
     color: white;
   }
 
-  &__textfield {
+  .search-autocomplete__textfield {
     .MuiInputBase-root {
       padding-right: 1.5rem;
       color: white;

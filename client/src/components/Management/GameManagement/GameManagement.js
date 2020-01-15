@@ -12,7 +12,7 @@ import './GameManagement.scss';
 export const GameManagement = ({ BEM_BASE }) => {
   const dispatch = useDispatch();
   const [gameData, setGameData] = useState([]);
-  const [editGameObj, setEditGameObj] = useState(null);
+  const [selectedGame, setSelectedGame] = useState(null);
   const [showMessage, setShowMessage] = useState(false);
   const messageTimeoutRef = useRef(false);
   const SHOW_MESSAGE_DISPLAY_TIME = 5000;
@@ -65,8 +65,8 @@ export const GameManagement = ({ BEM_BASE }) => {
     if (rowData && rowData._id) {
       setShowMessage(true);
 
-      if (editGameObj && editGameObj._id === rowData._id) {
-        setEditGameObj(null);
+      if (selectedGame && selectedGame._id === rowData._id) {
+        setSelectedGame(null);
       }
       dispatch(deleteGame(rowData._id));
     }
@@ -80,16 +80,17 @@ export const GameManagement = ({ BEM_BASE }) => {
     if (game.platform) {
       game.platform = game.platform.split(', ');
     }
-    setEditGameObj(game);
+    setSelectedGame(game);
   };
 
   return (
     <Fragment>
       <GameForm
         BEM_BASE={BEM_BASE}
-        game={editGameObj}
+        selectedGame={selectedGame}
+        setSelectedGame={(value) => setSelectedGame(value)}
         showMessage={showMessage}
-        setShowMessage={() => setShowMessage(true)}
+        setShowMessage={(value) => setShowMessage(value)}
         hideMessage={hideMessage}
       />
       <div className={`${BEM_BASE}__table`}>

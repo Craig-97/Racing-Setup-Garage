@@ -1,29 +1,13 @@
-.Homepage-games {
-  .Homepage-games-select {
-    margin: 1rem;
-    width: 11rem;
+.games-filters__select {
+  margin: 1rem;
+  width: 11rem;
 
-    .MuiFormLabel-root {
-      color: white;
-      font-weight: bold;
-    }
-    
+  .filters-select__dropdown {
+    color: white;
+    width: 100%;
 
-    &__dropdown {
-      color: white;
-      width: 100%;
-
-      .MuiSelect-icon {
-        color: white;
-      }
-
-      .MuiSelect-select {
-        padding-right: 1rem;
-      }
-
-      &:before {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.7);
-      }
+    .MuiSelect-select {
+      padding-right: 1rem;
     }
   }
 }

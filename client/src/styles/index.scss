@@ -22,7 +22,29 @@ code {
     max-width: 76%;
     margin: auto;
   }
-  
+
+  /* MATERIAL UI STYLE OVERRIDES */
+
+  /* Input Label */
+  .MuiFormLabel-root {
+    color: white;
+    font-weight: bold;
+  }
+
+  /* Input Component */
+  .MuiInputBase-root {
+    &:before {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+    }
+
+    /* Select Icon */
+    .MuiSelect-icon {
+      color: white;
+    }
+  }
+
+  /* END OF MATERIAL UI STYLE OVERRIDES */
+
   form {
     margin: 1.75rem 1rem 1rem;
 
@@ -37,22 +59,6 @@ code {
 
     input {
       display: block;
-    }
-
-    .MuiInput-root,
-    .MuiFormControl-root {
-      width: 100%;
-      color: white;
-      input {
-        padding: 0.5rem 0;
-      }
-    }
-
-    .MuiInputBase-root {
-      color: white;
-      &:before {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.7);
-      }
     }
 
     label {
@@ -110,6 +116,16 @@ code {
     input[type='button'],
     input[type='submit'] {
       -webkit-appearance: none;
+    }
+
+    /* Material UI inside forms */
+    .MuiInput-root,
+    .MuiFormControl-root {
+      width: 100%;
+      color: white;
+      input {
+        padding: 0.5rem 0;
+      }
     }
   }
 
