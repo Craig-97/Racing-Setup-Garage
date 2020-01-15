@@ -8,6 +8,7 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const paths = require('./paths');
 const common = require('./webpack-common-config.js');
@@ -16,7 +17,7 @@ module.exports = merge(common, {
   entry: {
     // Split vendor code into separate bundles
     vendor: ['react'],
-    app: paths.appIndexJs,
+    app: paths.appIndexJs
   },
   mode: 'production',
   // Set the name of our JS bundle using a chuckhash
@@ -25,7 +26,7 @@ module.exports = merge(common, {
   output: {
     filename: '[chunkhash]_[name].js',
     path: paths.appBuild,
-    publicPath: '/',
+    publicPath: '/'
   },
   plugins: [
     // Uglify to minify your JavaScript
@@ -33,11 +34,11 @@ module.exports = merge(common, {
     // Set process.env.NODE_ENV to production
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify('production'),
-      },
+        NODE_ENV: JSON.stringify('production')
+      }
     }),
     // Extract text/(s)css from a bundle, or bundles, into a separate file.
-    new ExtractTextPlugin('styles.css'),
+    new ExtractTextPlugin('styles.css')
   ],
   module: {
     rules: [
@@ -51,14 +52,31 @@ module.exports = merge(common, {
           // use babel for transpiling JavaScript files
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/react'],
-          },
-        },
+            presets: ['@babel/react']
+          }
+        }
       },
       {
-        test: /\.s?css$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader']
       },
-    ],
-  },
+      {
+        test: /\.scss$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'sass-loader',
+          {
+            loader: 'sass-resources-loader',
+            options: {
+              resources: require(path.join(
+                process.cwd(),
+                './src/styles/utils.js'
+              ))
+            }
+          }
+        ]
+      }
+    ]
+  }
 });

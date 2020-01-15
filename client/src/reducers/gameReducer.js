@@ -3,12 +3,19 @@ import {
   FETCH_GAMES_SUCCESS,
   FETCH_GAMES_ERROR,
   ADD_GAME_SUCCESS,
+  UPDATE_GAME_SUCCESS,
   DELETE_GAME_SUCCESS
-} from "../actions/gameActions";
+} from '../actions';
 
-import reduceReducers from "reduce-reducers";
-import addGameReducer from "./addGameReducer";
-import deleteGameReducer from "./deleteGameReducer";
+import {
+  addGameReducer,
+  updateGameReducer,
+  deleteGameReducer,
+  updateGameToStore,
+  deleteGameFromStore
+} from './gameReducers';
+
+import reduceReducers from 'reduce-reducers';
 
 const initialState = {
   data: [],
@@ -26,7 +33,7 @@ let fetchGameReducer = function(state, action) {
       return {
         ...state,
         CRUD: {
-          type: "READ",
+          type: 'READ',
           pending: true
         }
       };
@@ -44,17 +51,15 @@ let fetchGameReducer = function(state, action) {
         ...state,
         data: [...state.data, action.payload]
       };
-      case DELETE_GAME_SUCCESS:
-        console.log("DELETE GAME SUCCESS REDUCER", action.payload)
-        return {
-          ...state,
-          data: state.data.filter(game => game._id !== action.payload)
-        };
+    case UPDATE_GAME_SUCCESS:
+      return updateGameToStore(state, action);
+    case DELETE_GAME_SUCCESS:
+      return deleteGameFromStore(state, action);
     case FETCH_GAMES_ERROR:
       return {
         ...state,
         CRUD: {
-          type: "READ",
+          type: 'READ',
           pending: false,
           error: action.error
         }
@@ -68,6 +73,7 @@ let gameReducer = reduceReducers(
   initialState,
   fetchGameReducer,
   addGameReducer,
+  updateGameReducer,
   deleteGameReducer
 );
 

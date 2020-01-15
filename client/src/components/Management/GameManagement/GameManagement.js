@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import MaterialTable from 'material-table';
@@ -12,20 +12,32 @@ import './GameManagement.scss';
 export const GameManagement = ({ BEM_BASE }) => {
   const dispatch = useDispatch();
   const [gameData, setGameData] = useState([]);
+  const [editGameObj, setEditGameObj] = useState(null);
+  const [showMessage, setShowMessage] = useState(false);
+  const messageTimeoutRef = useRef(false);
+  const SHOW_MESSAGE_DISPLAY_TIME = 5000;
 
   const { games, isLoading } = useSelector(state => ({
     games: getGames(state),
     isLoading: gamesCRUDPending(state)
   }));
 
+  /* FETCHES GAMES IF NONE IN STORE */
   useEffect(() => {
     if (!games || !games.length) {
       dispatch(fetchGames());
     }
-  }, [dispatch]);
 
+    return () => {
+      if (messageTimeoutRef) {
+        clearInterval(messageTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  /* FORMATS GAMEDATA FOR TABLE DISPLAY */
   useEffect(() => {
-    let newGames = [...games];
+    let newGames = JSON.parse(JSON.stringify(games));
 
     if (newGames && newGames.length) {
       newGames.forEach(game => {
@@ -38,16 +50,49 @@ export const GameManagement = ({ BEM_BASE }) => {
     }
   }, [games]);
 
-  const deleteGame = rowData => {
-    confirm('You want to delete ' + rowData);
+  /* HIDES CURRENT MESSAGE AFTER 5 SECONDS */
+  const hideMessage = () => {
+    if (messageTimeoutRef) {
+      clearTimeout(messageTimeoutRef.current);
+    }
+    messageTimeoutRef.current = setTimeout(() => {
+      setShowMessage(false);
+    }, SHOW_MESSAGE_DISPLAY_TIME);
+  };
+
+  /* DELETES GAME USING ID FROM TABLE DATA */
+  const removeGame = rowData => {
+    if (rowData && rowData._id) {
+      setShowMessage(true);
+
+      if (editGameObj && editGameObj._id === rowData._id) {
+        setEditGameObj(null);
+      }
+      dispatch(deleteGame(rowData._id));
+    }
+  };
+
+  /* ON EDIT CLICK OF TABLE ROW, GAME CLICKED IS SENT TO FORM */
+  const editGame = rowData => {
+    const { _id, name, platform, imageURL, developer, releaseDate } = rowData;
+    const game = { _id, name, platform, imageURL, developer, releaseDate };
+
+    if (game.platform) {
+      game.platform = game.platform.split(', ');
+    }
+    setEditGameObj(game);
   };
 
   return (
     <Fragment>
-      <h1 className={`${BEM_BASE}-header`}>Games Form</h1>
-
-      <GameForm BEM_BASE={BEM_BASE} />
-      <div className={`${BEM_BASE}-table`}>
+      <GameForm
+        BEM_BASE={BEM_BASE}
+        game={editGameObj}
+        showMessage={showMessage}
+        setShowMessage={() => setShowMessage(true)}
+        hideMessage={hideMessage}
+      />
+      <div className={`${BEM_BASE}__table`}>
         <MaterialTable
           columns={[
             { title: 'Name', field: 'name' },
@@ -61,17 +106,16 @@ export const GameManagement = ({ BEM_BASE }) => {
             {
               icon: 'edit',
               tooltip: 'Edit Game',
-              onClick: (event, rowData) => {
-                alert('You edited ' + rowData.name);
-              }
+              onClick: (event, rowData) => editGame(rowData)
             },
             {
               icon: 'delete',
               tooltip: 'Delete Game',
-              onClick: (event, rowData) => deleteGame(rowData)
+              onClick: (event, rowData) => removeGame(rowData)
             }
           ]}
           options={{
+            pageSize: 10,
             actionsColumnIndex: -1
           }}
         />

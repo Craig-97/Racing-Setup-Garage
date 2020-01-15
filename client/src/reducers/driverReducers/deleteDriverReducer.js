@@ -1,12 +1,12 @@
 import {
-    DELETE_GAME_PENDING,
-    DELETE_GAME_SUCCESS,
-    DELETE_GAME_ERROR
-  } from '../actions/gameActions';
+    DELETE_DRIVER_PENDING,
+    DELETE_DRIVER_SUCCESS,
+    DELETE_DRIVER_ERROR
+  } from '../../actions';
   
-  export default function(state, action) {
+  export const deleteDriverReducer = (state, action) => {
     switch (action.type) {
-      case DELETE_GAME_PENDING:
+      case DELETE_DRIVER_PENDING:
         return {
           ...state,
           CRUD: {
@@ -14,16 +14,16 @@ import {
             pending: true
           }
         };
-      case DELETE_GAME_SUCCESS:
-      return {
+      case DELETE_DRIVER_SUCCESS:
+        return {
           ...state,
           CRUD: {
             type: null,
             pending: false,
             message: `${action.payload.name} Successfully Deleted`
           }
-      };
-      case DELETE_GAME_ERROR:
+        };
+      case DELETE_DRIVER_ERROR:
         return {
           ...state,
           CRUD: {
@@ -36,3 +36,11 @@ import {
         return state;
     }
   }
+  
+  export const deleteDriverFromStore = (state, action) => {
+    return {
+      ...state,
+      data: state.data.filter(driver => driver._id !== action.payload._id)
+    };
+  };
+  

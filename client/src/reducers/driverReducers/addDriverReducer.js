@@ -1,12 +1,12 @@
 import {
-    ADD_GAME_PENDING,
-    ADD_GAME_SUCCESS,
-    ADD_GAME_ERROR
-  } from '../actions/gameActions';
+    ADD_DRIVER_PENDING,
+    ADD_DRIVER_SUCCESS,
+    ADD_DRIVER_ERROR
+  } from '../../actions';
   
-  export default function(state, action) {
+  export const addDriverReducer = (state, action) => {
     switch (action.type) {
-      case ADD_GAME_PENDING:
+      case ADD_DRIVER_PENDING:
         return {
           ...state,
           CRUD: {
@@ -14,7 +14,7 @@ import {
             pending: true
           }
         };
-      case ADD_GAME_SUCCESS:
+      case ADD_DRIVER_SUCCESS:
       return {
           ...state,
           CRUD: {
@@ -23,7 +23,7 @@ import {
             message: `${action.payload.name} Successfully Added`
           }
       };
-      case ADD_GAME_ERROR:
+      case ADD_DRIVER_ERROR:
         return {
           ...state,
           CRUD: {

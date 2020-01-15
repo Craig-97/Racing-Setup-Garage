@@ -48,6 +48,31 @@ export const addGameError = (error) => {
     }
 }
 
+//PUT GAME
+export const UPDATE_GAME_PENDING = 'UPDATE_GAME_PENDING';
+export const UPDATE_GAME_SUCCESS = 'UPDATE_GAME_SUCCESS';
+export const UPDATE_GAME_ERROR = 'UPDATE_GAME_ERROR';
+
+export const updateGamePending = () => {
+    return {
+        type: UPDATE_GAME_PENDING
+    }
+}
+
+export const updateGameSuccess = (game) => {
+    return {
+        type: UPDATE_GAME_SUCCESS,
+        payload: game
+    }
+}
+
+export const updateGameError = (error) => {
+    return {
+        type: UPDATE_GAME_ERROR,
+        error: {...error.data}
+    }
+}
+
 //DELETE GAME
 export const DELETE_GAME_PENDING = 'DELETE_GAME_PENDING';
 export const DELETE_GAME_SUCCESS = 'DELETE_GAME_SUCCESS';
