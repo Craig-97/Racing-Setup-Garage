@@ -6,7 +6,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 
 import './GamesNameSearch.scss';
 
-export const GamesNameSearch = ({ BEM_BASE, updateFilteredGames, filteredGames }) => {
+export const GamesNameSearch = ({ updateFilteredGames, filteredGames }) => {
   const names = filteredGames && filteredGames.length ? filteredGames.map(game => game.name) : [];
 
   /* CALLED WHEN ENTER IS HIT */
@@ -16,25 +16,28 @@ export const GamesNameSearch = ({ BEM_BASE, updateFilteredGames, filteredGames }
 
   /* CALLED EVERY SINGLE CHANGE */
   const onInputChange = (value, reason) => {
-    if (reason === 'clear' || !value ) {
+    if (reason === 'clear' || !value) {
       updateFilteredGames('', 'name');
     }
   };
 
   return (
-    <div className={`${BEM_BASE}-games-search`}>
-      <InputLabel htmlFor={`${BEM_BASE}-games-search__autocomplete`}>
+    <div className='games-filters__search'>
+      <InputLabel
+        className='filters-search__label'
+        htmlFor='filters-search__autocomplete'
+      >
         Name
       </InputLabel>
       <Autocomplete
-        className={`${BEM_BASE}-games-search__autocomplete`}
+        className='filters-search__autocomplete'
         freeSolo
         options={names}
         onChange={(event, newValue) => onChange(newValue)}
         onInputChange={(event, value, reason) => onInputChange(value, reason)}
         renderInput={params => (
           <TextField
-            className={`${BEM_BASE}-games-search__textfield`}
+            className='search-autocomplete__textfield'
             {...params}
             fullWidth
           />

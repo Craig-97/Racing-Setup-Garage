@@ -15,12 +15,12 @@
     @include grid-column(1, 2);
     @include grid-row(1, 2);
     @include grid-justify-self(end);
-    width: 20rem;
-    margin: 0 1rem 0 0;
-
+    // Grid inside select
     @include display-grid();
     @include grid-template-columns(45% 55%);
     @include grid-template-rows(auto);
+    width: 20rem;
+    margin: 0 1rem 0 0;
 
     .MuiFormLabel-root {
       @include grid-column(1, 2);

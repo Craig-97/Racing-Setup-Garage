@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
-import { GamesNameSearch, GamesPlatformSelect } from "../index";
+import { GamesNameSearch, GamesPlatformSelect } from '../index';
 
-import "./GamesHeader.scss";
+import './GamesHeader.scss';
 
 export const GamesHeader = ({
   BEM_BASE,
@@ -14,14 +14,10 @@ export const GamesHeader = ({
       <h1 className={`${BEM_BASE}-games__header`}>Games</h1>
       <div className={`${BEM_BASE}-games__filters`}>
         <GamesNameSearch
-          BEM_BASE={BEM_BASE}
           updateFilteredGames={updateFilteredGames}
           filteredGames={filteredGames}
         />
-        <GamesPlatformSelect
-          BEM_BASE={BEM_BASE}
-          updateFilteredGames={updateFilteredGames}
-        />
+        <GamesPlatformSelect updateFilteredGames={updateFilteredGames} />
       </div>
     </>
   );
