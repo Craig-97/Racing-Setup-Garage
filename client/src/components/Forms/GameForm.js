@@ -19,7 +19,8 @@ import {
 
 export const GameForm = ({
   BEM_BASE,
-  game,
+  selectedGame,
+  setSelectedGame,
   showMessage,
   hideMessage,
   setShowMessage
@@ -43,7 +44,8 @@ export const GameForm = ({
     errors,
     formState,
     control,
-    setValue
+    setValue,
+    getValues
   } = useForm();
 
   /* DISPLAYS CURRENT API REQUEST STATUS & RESETS FORM WHEN SUCCESSFUL */
@@ -52,6 +54,7 @@ export const GameForm = ({
       // Success
       setShowMessageType('success');
       hideMessage();
+      setSelectedGame(null);
       resetForm();
     } else if (!pending && error && showMessage && validType) {
       // Error
@@ -66,16 +69,16 @@ export const GameForm = ({
 
   /* UPDATES FIELD VALUES BASED ON GAME PROP CHANGES */
   useEffect(() => {
-    if (game) {
-      setValue('name', game.name);
-      setValue('platform', game.platform);
-      setValue('imageURL', game.imageURL);
-      setValue('developer', game.developer);
-      setValue('releaseDate', game.releaseDate);
-    } else if (!game) {
-      reset();
+    if (selectedGame) {
+      setValue('name', selectedGame.name);
+      setValue('platform', selectedGame.platform);
+      setValue('imageURL', selectedGame.imageURL);
+      setValue('developer', selectedGame.developer);
+      setValue('releaseDate', selectedGame.releaseDate);
+    } else if (!selectedGame) {
+      resetForm();
     }
-  }, [game]);
+  }, [selectedGame]);
 
   /* FORMATS GAME DATA BEFORE API REQUEST */
   const formatData = data => {
@@ -89,18 +92,21 @@ export const GameForm = ({
   const onSubmit = data => {
     if (data) {
       const submitData = formatData(data);
-      setShowMessage();
-      if (game) {
-        dispatch(updateGame(game._id, submitData));
+      setShowMessage(true);
+      if (selectedGame) {
+        dispatch(updateGame(selectedGame._id, submitData));
       } else {
         dispatch(addGame(submitData));
       }
     }
   };
 
-  /* RESETS FORM IF FORM STATE IS DIRTY & FORM SUBMITTED SUCCESSFULLY */
+  /* RESETS FORM IF FORM SUBMITTED SUCCESSFULLY OR CURRENT GAME BEING EDITED IS DELETED */
   const resetForm = () => {
-    if (formState && formState.dirty && formState.isSubmitted) {
+    const formSubmitted = formState && formState.dirty && formState.isSubmitted;
+    const selectedGameDeleted = getValues && getValues().name;
+
+    if (formSubmitted || selectedGameDeleted) {
       reset();
     }
   };
@@ -138,8 +144,6 @@ export const GameForm = ({
       </div>
     );
   };
-
-  const options = ['PC', 'Playstation', 'Xbox']
 
   return (
     <div className={`${BEM_BASE}__form`}>

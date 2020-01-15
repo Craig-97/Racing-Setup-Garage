@@ -9,7 +9,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 import './GamesPlatformSelect.scss';
 
-export const GamesPlatformSelect = ({ BEM_BASE, updateFilteredGames }) => {
+export const GamesPlatformSelect = ({ updateFilteredGames }) => {
   const initialPlatforms = ['PC', 'Playstation', 'Xbox'];
   const [selectedPlatforms, setSelectedPlatforms] = useState(initialPlatforms);
 
@@ -22,12 +22,15 @@ export const GamesPlatformSelect = ({ BEM_BASE, updateFilteredGames }) => {
   };
 
   return (
-    <div className={`${BEM_BASE}-games-select`}>
-      <InputLabel htmlFor={`${BEM_BASE}-games-select__dropdown`}>
+    <div className='games-filters__select'>
+      <InputLabel
+        className='filters-select__label'
+        htmlFor='filters-select__dropdown'
+      >
         Platform
       </InputLabel>
       <Select
-        className={`${BEM_BASE}-games-select__dropdown`}
+        className='filters-select__dropdown'
         multiple
         value={selectedPlatforms}
         onChange={onChange}
