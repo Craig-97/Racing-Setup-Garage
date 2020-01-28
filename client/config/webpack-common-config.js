@@ -26,7 +26,7 @@ module.exports = {
       actions: path.resolve(paths.appSrc, "actions"),
       reducers: path.resolve(paths.appSrc, "reducers"),
       api: path.resolve(paths.appSrc, "api"),
-      utils: path.resolve(paths.appSrc, "util")
+      utils: path.resolve(paths.appSrc, "utils")
     }
   },
   module: {
