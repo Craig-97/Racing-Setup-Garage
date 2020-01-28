@@ -16,7 +16,8 @@ import {
         };
       case ADD_CAR_SUCCESS:
       return {
-          ...state,
+        ...state,
+        data: [...state.data, action.payload],
           CRUD: {
             type: null,
             pending: false,

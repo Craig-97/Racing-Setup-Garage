@@ -2,7 +2,7 @@ import {
   UPDATE_TRACK_PENDING,
   UPDATE_TRACK_SUCCESS,
   UPDATE_TRACK_ERROR
-} from '../../actions';
+} from "../../actions";
 
 export const updateTrackReducer = (state, action) => {
   switch (action.type) {
@@ -10,24 +10,17 @@ export const updateTrackReducer = (state, action) => {
       return {
         ...state,
         CRUD: {
-          type: 'UPDATE',
+          type: "UPDATE",
           pending: true
         }
       };
     case UPDATE_TRACK_SUCCESS:
-      return {
-        ...state,
-        CRUD: {
-          type: null,
-          pending: false,
-          message: `${action.payload.name} Successfully Updated`
-        }
-      };
+      return updateTrackToStore(state, action);
     case UPDATE_TRACK_ERROR:
       return {
         ...state,
         CRUD: {
-          type: 'UPDATE',
+          type: "UPDATE",
           pending: false,
           error: action.error
         }
@@ -50,6 +43,11 @@ export const updateTrackToStore = (state, action) => {
 
   return {
     ...state,
-    data: updatedData !== state.data ? updatedData : [...state.data]
+    data: updatedData !== state.data ? updatedData : [...state.data],
+    CRUD: {
+      type: null,
+      pending: false,
+      message: `${action.payload.name} Successfully Updated`
+    }
   };
 };

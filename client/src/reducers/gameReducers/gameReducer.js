@@ -1,19 +1,14 @@
 import {
   FETCH_GAMES_PENDING,
   FETCH_GAMES_SUCCESS,
-  FETCH_GAMES_ERROR,
-  ADD_GAME_SUCCESS,
-  UPDATE_GAME_SUCCESS,
-  DELETE_GAME_SUCCESS
-} from '../actions';
+  FETCH_GAMES_ERROR
+} from '../../actions';
 
 import {
   addGameReducer,
   updateGameReducer,
-  deleteGameReducer,
-  updateGameToStore,
-  deleteGameFromStore
-} from './gameReducers';
+  deleteGameReducer
+} from './';
 
 import reduceReducers from 'reduce-reducers';
 
@@ -46,15 +41,6 @@ let fetchGameReducer = function(state, action) {
           pending: false
         }
       };
-    case ADD_GAME_SUCCESS:
-      return {
-        ...state,
-        data: [...state.data, action.payload]
-      };
-    case UPDATE_GAME_SUCCESS:
-      return updateGameToStore(state, action);
-    case DELETE_GAME_SUCCESS:
-      return deleteGameFromStore(state, action);
     case FETCH_GAMES_ERROR:
       return {
         ...state,

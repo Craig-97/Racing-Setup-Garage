@@ -2,7 +2,7 @@ import {
   UPDATE_SETUP_PENDING,
   UPDATE_SETUP_SUCCESS,
   UPDATE_SETUP_ERROR
-} from '../../actions';
+} from "../../actions";
 
 export const updateSetupReducer = (state, action) => {
   switch (action.type) {
@@ -10,24 +10,17 @@ export const updateSetupReducer = (state, action) => {
       return {
         ...state,
         CRUD: {
-          type: 'UPDATE',
+          type: "UPDATE",
           pending: true
         }
       };
     case UPDATE_SETUP_SUCCESS:
-      return {
-        ...state,
-        CRUD: {
-          type: null,
-          pending: false,
-          message: `${action.payload.name} Successfully Updated`
-        }
-      };
+      return updateSetupToStore(state, action);
     case UPDATE_SETUP_ERROR:
       return {
         ...state,
         CRUD: {
-          type: 'UPDATE',
+          type: "UPDATE",
           pending: false,
           error: action.error
         }
@@ -50,6 +43,11 @@ export const updateSetupToStore = (state, action) => {
 
   return {
     ...state,
-    data: updatedData !== state.data ? updatedData : [...state.data]
+    data: updatedData !== state.data ? updatedData : [...state.data],
+    CRUD: {
+      type: null,
+      pending: false,
+      message: `${action.payload.name} Successfully Updated`
+    }
   };
 };

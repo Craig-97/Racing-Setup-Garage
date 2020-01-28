@@ -2,7 +2,7 @@ import {
   DELETE_SETUP_PENDING,
   DELETE_SETUP_SUCCESS,
   DELETE_SETUP_ERROR
-} from '../../actions';
+} from "../../actions";
 
 export const deleteSetupReducer = (state, action) => {
   switch (action.type) {
@@ -10,24 +10,17 @@ export const deleteSetupReducer = (state, action) => {
       return {
         ...state,
         CRUD: {
-          type: 'DELETE',
+          type: "DELETE",
           pending: true
         }
       };
     case DELETE_SETUP_SUCCESS:
-      return {
-        ...state,
-        CRUD: {
-          type: null,
-          pending: false,
-          message: `${action.payload.name} Successfully Deleted`
-        }
-      };
+      return deleteSetupFromStore(state, action);
     case DELETE_SETUP_ERROR:
       return {
         ...state,
         CRUD: {
-          type: 'DELETE',
+          type: "DELETE",
           pending: false,
           error: action.error
         }
@@ -35,11 +28,16 @@ export const deleteSetupReducer = (state, action) => {
     default:
       return state;
   }
-}
+};
 
 export const deleteSetupFromStore = (state, action) => {
   return {
     ...state,
-    data: state.data.filter(setup => setup._id !== action.payload._id)
+    data: state.data.filter(setup => setup._id !== action.payload._id),
+    CRUD: {
+      type: null,
+      pending: false,
+      message: `${action.payload.name} Successfully Deleted`
+    }
   };
 };

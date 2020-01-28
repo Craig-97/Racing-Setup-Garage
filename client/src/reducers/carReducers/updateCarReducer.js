@@ -2,7 +2,7 @@ import {
   UPDATE_CAR_PENDING,
   UPDATE_CAR_SUCCESS,
   UPDATE_CAR_ERROR
-} from '../../actions';
+} from "../../actions";
 
 export const updateCarReducer = (state, action) => {
   switch (action.type) {
@@ -10,24 +10,17 @@ export const updateCarReducer = (state, action) => {
       return {
         ...state,
         CRUD: {
-          type: 'UPDATE',
+          type: "UPDATE",
           pending: true
         }
       };
     case UPDATE_CAR_SUCCESS:
-      return {
-        ...state,
-        CRUD: {
-          type: null,
-          pending: false,
-          message: `${action.payload.name} Successfully Updated`
-        }
-      };
+      return updateCarToStore(state, action);
     case UPDATE_CAR_ERROR:
       return {
         ...state,
         CRUD: {
-          type: 'UPDATE',
+          type: "UPDATE",
           pending: false,
           error: action.error
         }
@@ -50,6 +43,11 @@ export const updateCarToStore = (state, action) => {
 
   return {
     ...state,
-    data: updatedData !== state.data ? updatedData : [...state.data]
+    data: updatedData !== state.data ? updatedData : [...state.data],
+    CRUD: {
+      type: null,
+      pending: false,
+      message: `${action.payload.name} Successfully Updated`
+    }
   };
 };

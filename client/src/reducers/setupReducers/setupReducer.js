@@ -1,19 +1,14 @@
 import {
   FETCH_SETUPS_PENDING,
   FETCH_SETUPS_SUCCESS,
-  FETCH_SETUPS_ERROR,
-  ADD_SETUP_SUCCESS,
-  UPDATE_SETUP_SUCCESS,
-  DELETE_SETUP_SUCCESS
-} from '../actions';
+  FETCH_SETUPS_ERROR
+} from '../../actions';
 
 import {
   addSetupReducer,
   updateSetupReducer,
-  deleteSetupReducer,
-  updateSetupToStore,
-  deleteSetupFromStore
-} from './setupReducers';
+  deleteSetupReducer
+} from './';
 
 import reduceReducers from 'reduce-reducers';
 
@@ -46,15 +41,6 @@ let fetchSetupReducer = function(state, action) {
           pending: false
         }
       };
-    case ADD_SETUP_SUCCESS:
-      return {
-        ...state,
-        data: [...state.data, action.payload]
-      };
-    case UPDATE_SETUP_SUCCESS:
-      return updateSetupToStore(state, action);
-    case DELETE_SETUP_SUCCESS:
-      return deleteSetupFromStore(state, action);
     case FETCH_SETUPS_ERROR:
       return {
         ...state,

@@ -1,19 +1,14 @@
 import {
     FETCH_CARS_PENDING,
     FETCH_CARS_SUCCESS,
-    FETCH_CARS_ERROR,
-    ADD_CAR_SUCCESS,
-    UPDATE_CAR_SUCCESS,
-    DELETE_CAR_SUCCESS
-  } from '../actions';
+    FETCH_CARS_ERROR
+  } from '../../actions';
   
   import {
     addCarReducer,
     updateCarReducer,
-    deleteCarReducer,
-    updateCarToStore,
-    deleteCarFromStore
-  } from './carReducers';
+    deleteCarReducer
+  } from './'
   
   import reduceReducers from 'reduce-reducers';
   
@@ -46,15 +41,6 @@ import {
             pending: false
           }
         };
-      case ADD_CAR_SUCCESS:
-        return {
-          ...state,
-          data: [...state.data, action.payload]
-        };
-      case UPDATE_CAR_SUCCESS:
-        return updateCarToStore(state, action);
-      case DELETE_CAR_SUCCESS:
-        return deleteCarFromStore(state, action);
       case FETCH_CARS_ERROR:
         return {
           ...state,

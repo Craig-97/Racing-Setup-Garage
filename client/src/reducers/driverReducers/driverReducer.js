@@ -1,19 +1,14 @@
 import {
     FETCH_DRIVERS_PENDING,
     FETCH_DRIVERS_SUCCESS,
-    FETCH_DRIVERS_ERROR,
-    ADD_DRIVER_SUCCESS,
-    UPDATE_DRIVER_SUCCESS,
-    DELETE_DRIVER_SUCCESS
-  } from '../actions';
+    FETCH_DRIVERS_ERROR
+  } from '../../actions';
   
   import {
     addDriverReducer,
     updateDriverReducer,
-    deleteDriverReducer,
-    updateDriverToStore,
-    deleteDriverFromStore
-  } from './driverReducers';
+    deleteDriverReducer
+  } from './';
   
   import reduceReducers from 'reduce-reducers';
   
@@ -46,15 +41,6 @@ import {
             pending: false
           }
         };
-      case ADD_DRIVER_SUCCESS:
-        return {
-          ...state,
-          data: [...state.data, action.payload]
-        };
-      case UPDATE_DRIVER_SUCCESS:
-        return updateDriverToStore(state, action);
-      case DELETE_DRIVER_SUCCESS:
-        return deleteDriverFromStore(state, action);
       case FETCH_DRIVERS_ERROR:
         return {
           ...state,

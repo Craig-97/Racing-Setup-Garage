@@ -17,6 +17,7 @@ import {
       case ADD_TRACK_SUCCESS:
       return {
           ...state,
+          data: [...state.data, action.payload],
           CRUD: {
             type: null,
             pending: false,

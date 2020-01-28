@@ -1,3 +1,1 @@
-export * from './addTrackReducer'
-export * from './updateTrackReducer'
-export * from './deleteTrackReducer'
+export * from './trackReducer'

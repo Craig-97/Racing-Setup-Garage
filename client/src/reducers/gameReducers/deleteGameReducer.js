@@ -2,7 +2,7 @@ import {
   DELETE_GAME_PENDING,
   DELETE_GAME_SUCCESS,
   DELETE_GAME_ERROR
-} from '../../actions';
+} from "../../actions";
 
 export const deleteGameReducer = (state, action) => {
   switch (action.type) {
@@ -10,24 +10,17 @@ export const deleteGameReducer = (state, action) => {
       return {
         ...state,
         CRUD: {
-          type: 'DELETE',
+          type: "DELETE",
           pending: true
         }
       };
     case DELETE_GAME_SUCCESS:
-      return {
-        ...state,
-        CRUD: {
-          type: null,
-          pending: false,
-          message: `${action.payload.name} Successfully Deleted`
-        }
-      };
+      return deleteGameFromStore(state, action);
     case DELETE_GAME_ERROR:
       return {
         ...state,
         CRUD: {
-          type: 'DELETE',
+          type: "DELETE",
           pending: false,
           error: action.error
         }
@@ -35,11 +28,16 @@ export const deleteGameReducer = (state, action) => {
     default:
       return state;
   }
-}
+};
 
 export const deleteGameFromStore = (state, action) => {
   return {
     ...state,
-    data: state.data.filter(game => game._id !== action.payload._id)
+    data: state.data.filter(game => game._id !== action.payload._id),
+    CRUD: {
+      type: null,
+      pending: false,
+      message: `${action.payload.name} Successfully Deleted`
+    }
   };
 };
