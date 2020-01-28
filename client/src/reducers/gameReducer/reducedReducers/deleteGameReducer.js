@@ -1,12 +1,12 @@
 import {
-  DELETE_CAR_PENDING,
-  DELETE_CAR_SUCCESS,
-  DELETE_CAR_ERROR
-} from "../../actions";
+  DELETE_GAME_PENDING,
+  DELETE_GAME_SUCCESS,
+  DELETE_GAME_ERROR
+} from "actions";
 
-export const deleteCarReducer = (state, action) => {
+export const deleteGameReducer = (state, action) => {
   switch (action.type) {
-    case DELETE_CAR_PENDING:
+    case DELETE_GAME_PENDING:
       return {
         ...state,
         CRUD: {
@@ -14,9 +14,9 @@ export const deleteCarReducer = (state, action) => {
           pending: true
         }
       };
-    case DELETE_CAR_SUCCESS:
-      return deleteCarFromStore(state, action);
-    case DELETE_CAR_ERROR:
+    case DELETE_GAME_SUCCESS:
+      return deleteGameFromStore(state, action);
+    case DELETE_GAME_ERROR:
       return {
         ...state,
         CRUD: {
@@ -30,10 +30,10 @@ export const deleteCarReducer = (state, action) => {
   }
 };
 
-export const deleteCarFromStore = (state, action) => {
+export const deleteGameFromStore = (state, action) => {
   return {
     ...state,
-    data: state.data.filter(car => car._id !== action.payload._id),
+    data: state.data.filter(game => game._id !== action.payload._id),
     CRUD: {
       type: null,
       pending: false,

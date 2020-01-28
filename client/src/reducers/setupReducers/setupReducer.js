@@ -2,13 +2,13 @@ import {
   FETCH_SETUPS_PENDING,
   FETCH_SETUPS_SUCCESS,
   FETCH_SETUPS_ERROR
-} from '../../actions';
+} from 'actions';
 
 import {
   addSetupReducer,
   updateSetupReducer,
   deleteSetupReducer
-} from './';
+} from './reducedReducers';
 
 import reduceReducers from 'reduce-reducers';
 
@@ -55,7 +55,7 @@ let fetchSetupReducer = function(state, action) {
   }
 };
 
-let setupReducer = reduceReducers(
+export const setupReducer = reduceReducers(
   initialState,
   fetchSetupReducer,
   addSetupReducer,

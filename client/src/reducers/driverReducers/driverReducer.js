@@ -2,13 +2,13 @@ import {
     FETCH_DRIVERS_PENDING,
     FETCH_DRIVERS_SUCCESS,
     FETCH_DRIVERS_ERROR
-  } from '../../actions';
+  } from 'actions';
   
   import {
     addDriverReducer,
     updateDriverReducer,
     deleteDriverReducer
-  } from './';
+  } from './reducedReducers';
   
   import reduceReducers from 'reduce-reducers';
   
@@ -55,7 +55,7 @@ import {
     }
   };
   
-  let driverReducer = reduceReducers(
+  export const driverReducer = reduceReducers(
     initialState,
     fetchDriverReducer,
     addDriverReducer,
@@ -68,6 +68,4 @@ import {
   export const driversCRUDError = state => state.drivers.CRUD.error;
   export const driversCRUDMessage = state => state.drivers.CRUD.message;
   export const driversCRUDType = state => state.drivers.CRUD.type;
-  
-  export default driverReducer;
   

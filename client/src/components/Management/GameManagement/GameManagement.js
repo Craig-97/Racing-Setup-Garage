@@ -4,8 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import MaterialTable from 'material-table';
 import { GameForm } from '../../Forms';
 
-import { fetchGames, deleteGame } from '../../../api';
-import { getGames, gamesCRUDPending } from '../../../reducers/gameReducer';
+import { fetchGames, deleteGame } from 'api';
+import { getGames, gamesCRUDPending } from 'reducers/gameReducer';
 
 import './GameManagement.scss';
 

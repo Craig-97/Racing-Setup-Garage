@@ -2,7 +2,7 @@ import {
     ADD_CAR_PENDING,
     ADD_CAR_SUCCESS,
     ADD_CAR_ERROR
-  } from '../../actions';
+  } from 'actions';
   
   export const addCarReducer = (state, action) => {
     switch (action.type) {

@@ -1,12 +1,12 @@
 import {
-  UPDATE_CAR_PENDING,
-  UPDATE_CAR_SUCCESS,
-  UPDATE_CAR_ERROR
-} from "../../actions";
+  UPDATE_GAME_PENDING,
+  UPDATE_GAME_SUCCESS,
+  UPDATE_GAME_ERROR
+} from "actions";
 
-export const updateCarReducer = (state, action) => {
+export const updateGameReducer = (state, action) => {
   switch (action.type) {
-    case UPDATE_CAR_PENDING:
+    case UPDATE_GAME_PENDING:
       return {
         ...state,
         CRUD: {
@@ -14,9 +14,9 @@ export const updateCarReducer = (state, action) => {
           pending: true
         }
       };
-    case UPDATE_CAR_SUCCESS:
-      return updateCarToStore(state, action);
-    case UPDATE_CAR_ERROR:
+    case UPDATE_GAME_SUCCESS:
+      return updateGameToStore(state, action);
+    case UPDATE_GAME_ERROR:
       return {
         ...state,
         CRUD: {
@@ -30,14 +30,14 @@ export const updateCarReducer = (state, action) => {
   }
 };
 
-export const updateCarToStore = (state, action) => {
+export const updateGameToStore = (state, action) => {
   let updatedData = [...state.data];
 
-  updatedData = updatedData.map(car => {
-    if (car._id === action.payload._id) {
-      return (car = action.payload);
+  updatedData = updatedData.map(game => {
+    if (game._id === action.payload._id) {
+      return (game = action.payload);
     } else {
-      return car;
+      return game;
     }
   });
 

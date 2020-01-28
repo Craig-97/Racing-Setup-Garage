@@ -2,13 +2,13 @@ import {
   FETCH_TRACKS_PENDING,
   FETCH_TRACKS_SUCCESS,
   FETCH_TRACKS_ERROR
-} from '../../actions';
+} from 'actions';
 
 import {
   addTrackReducer,
   updateTrackReducer,
   deleteTrackReducer
-} from './';
+} from './reducedReducers';
 
 import reduceReducers from 'reduce-reducers';
 
@@ -55,7 +55,7 @@ let fetchTrackReducer = function(state, action) {
   }
 };
 
-let trackReducer = reduceReducers(
+export const trackReducer = reduceReducers(
   initialState,
   fetchTrackReducer,
   addTrackReducer,

@@ -1,12 +1,12 @@
 import {
-    ADD_DRIVER_PENDING,
-    ADD_DRIVER_SUCCESS,
-    ADD_DRIVER_ERROR
-  } from '../../actions';
+    ADD_TRACK_PENDING,
+    ADD_TRACK_SUCCESS,
+    ADD_TRACK_ERROR
+  } from 'actions';
   
-  export const addDriverReducer = (state, action) => {
+  export const addTrackReducer = (state, action) => {
     switch (action.type) {
-      case ADD_DRIVER_PENDING:
+      case ADD_TRACK_PENDING:
         return {
           ...state,
           CRUD: {
@@ -14,7 +14,7 @@ import {
             pending: true
           }
         };
-      case ADD_DRIVER_SUCCESS:
+      case ADD_TRACK_SUCCESS:
       return {
           ...state,
           data: [...state.data, action.payload],
@@ -24,7 +24,7 @@ import {
             message: `${action.payload.name} Successfully Added`
           }
       };
-      case ADD_DRIVER_ERROR:
+      case ADD_TRACK_ERROR:
         return {
           ...state,
           CRUD: {

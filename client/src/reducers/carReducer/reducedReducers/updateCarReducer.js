@@ -1,12 +1,12 @@
 import {
-  UPDATE_DRIVER_PENDING,
-  UPDATE_DRIVER_SUCCESS,
-  UPDATE_DRIVER_ERROR
-} from "../../actions";
+  UPDATE_CAR_PENDING,
+  UPDATE_CAR_SUCCESS,
+  UPDATE_CAR_ERROR
+} from "actions";
 
-export const updateDriverReducer = (state, action) => {
+export const updateCarReducer = (state, action) => {
   switch (action.type) {
-    case UPDATE_DRIVER_PENDING:
+    case UPDATE_CAR_PENDING:
       return {
         ...state,
         CRUD: {
@@ -14,9 +14,9 @@ export const updateDriverReducer = (state, action) => {
           pending: true
         }
       };
-    case UPDATE_DRIVER_SUCCESS:
-      return updateDriverToStore(state, action);
-    case UPDATE_DRIVER_ERROR:
+    case UPDATE_CAR_SUCCESS:
+      return updateCarToStore(state, action);
+    case UPDATE_CAR_ERROR:
       return {
         ...state,
         CRUD: {
@@ -30,14 +30,14 @@ export const updateDriverReducer = (state, action) => {
   }
 };
 
-export const updateDriverToStore = (state, action) => {
+export const updateCarToStore = (state, action) => {
   let updatedData = [...state.data];
 
-  updatedData = updatedData.map(driver => {
-    if (driver._id === action.payload._id) {
-      return (driver = action.payload);
+  updatedData = updatedData.map(car => {
+    if (car._id === action.payload._id) {
+      return (car = action.payload);
     } else {
-      return driver;
+      return car;
     }
   });
 

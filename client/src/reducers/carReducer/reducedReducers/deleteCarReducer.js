@@ -1,12 +1,12 @@
 import {
-  DELETE_DRIVER_PENDING,
-  DELETE_DRIVER_SUCCESS,
-  DELETE_DRIVER_ERROR
-} from "../../actions";
+  DELETE_CAR_PENDING,
+  DELETE_CAR_SUCCESS,
+  DELETE_CAR_ERROR
+} from "actions";
 
-export const deleteDriverReducer = (state, action) => {
+export const deleteCarReducer = (state, action) => {
   switch (action.type) {
-    case DELETE_DRIVER_PENDING:
+    case DELETE_CAR_PENDING:
       return {
         ...state,
         CRUD: {
@@ -14,9 +14,9 @@ export const deleteDriverReducer = (state, action) => {
           pending: true
         }
       };
-    case DELETE_DRIVER_SUCCESS:
-      return deleteDriverFromStore(state, action);
-    case DELETE_DRIVER_ERROR:
+    case DELETE_CAR_SUCCESS:
+      return deleteCarFromStore(state, action);
+    case DELETE_CAR_ERROR:
       return {
         ...state,
         CRUD: {
@@ -30,10 +30,10 @@ export const deleteDriverReducer = (state, action) => {
   }
 };
 
-export const deleteDriverFromStore = (state, action) => {
+export const deleteCarFromStore = (state, action) => {
   return {
     ...state,
-    data: state.data.filter(driver => driver._id !== action.payload._id),
+    data: state.data.filter(car => car._id !== action.payload._id),
     CRUD: {
       type: null,
       pending: false,

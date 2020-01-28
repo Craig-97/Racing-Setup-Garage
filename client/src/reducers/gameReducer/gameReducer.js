@@ -2,15 +2,15 @@ import {
   FETCH_GAMES_PENDING,
   FETCH_GAMES_SUCCESS,
   FETCH_GAMES_ERROR
-} from '../../actions';
+} from "actions";
 
 import {
   addGameReducer,
   updateGameReducer,
   deleteGameReducer
-} from './';
+} from "./reducedReducers";
 
-import reduceReducers from 'reduce-reducers';
+import reduceReducers from "reduce-reducers";
 
 const initialState = {
   data: [],
@@ -28,7 +28,7 @@ let fetchGameReducer = function(state, action) {
       return {
         ...state,
         CRUD: {
-          type: 'READ',
+          type: "READ",
           pending: true
         }
       };
@@ -45,7 +45,7 @@ let fetchGameReducer = function(state, action) {
       return {
         ...state,
         CRUD: {
-          type: 'READ',
+          type: "READ",
           pending: false,
           error: action.error
         }
@@ -55,7 +55,7 @@ let fetchGameReducer = function(state, action) {
   }
 };
 
-let gameReducer = reduceReducers(
+export const gameReducer = reduceReducers(
   initialState,
   fetchGameReducer,
   addGameReducer,
@@ -68,5 +68,3 @@ export const gamesCRUDPending = state => state.games.CRUD.pending;
 export const gamesCRUDError = state => state.games.CRUD.error;
 export const gamesCRUDMessage = state => state.games.CRUD.message;
 export const gamesCRUDType = state => state.games.CRUD.type;
-
-export default gameReducer;
