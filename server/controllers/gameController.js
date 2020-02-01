@@ -75,7 +75,7 @@ exports.updateGame = async (req, res) => {
 };
 
 exports.deleteGame = async (req, res) => {
-  await Game.findOneAndDelete({ _id: req.params.id }, (err, game) => {
+  await Game.findOneAndDelete({ _id: req.params.id }).exec((err, game) => {
     if (err) {
       return res.status(400).json({ success: false, error: err });
     }
@@ -85,7 +85,7 @@ exports.deleteGame = async (req, res) => {
     }
 
     return res.status(200).json({ success: true, game: game });
-  }).catch(err => console.log(err));
+  })
 };
 
 exports.getGameById = async (req, res) => {
