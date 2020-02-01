@@ -36,18 +36,19 @@ export const GameManagement = ({ BEM_BASE }) => {
   }, []);
 
   /* FORMATS GAMEDATA FOR TABLE DISPLAY */
-  useEffect(() => {
+  const gameData = useMemo(() => {
     let newGames = JSON.parse(JSON.stringify(games));
 
     if (newGames && newGames.length) {
       newGames.forEach(game => {
         if (game.platform && Array.isArray(game.platform)) {
-          game.platform = game.platform.join(', ');
+          game.platform = game.platform.join(", ");
         }
       });
 
       setGameData(newGames);
     }
+    return newGames;
   }, [games]);
 
   /* HIDES CURRENT MESSAGE AFTER 5 SECONDS */
