@@ -11,7 +11,6 @@ import './GameManagement.scss';
 
 export const GameManagement = ({ BEM_BASE }) => {
   const dispatch = useDispatch();
-  const [gameData, setGameData] = useState([]);
   const [selectedGame, setSelectedGame] = useState(null);
   const [showMessage, setShowMessage] = useState(false);
   const messageTimeoutRef = useRef(false);
