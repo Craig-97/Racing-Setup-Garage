@@ -1,21 +1,24 @@
-import React, { Fragment, useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { Fragment, useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import moment from 'moment';
+import moment from "moment";
 
-import TextField from '@material-ui/core/TextField';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import { Datepicker, MultiSelect } from '../Controls';
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { Datepicker, MultiSelect } from "../Controls";
 
-import { addGame, updateGame } from 'api';
-import { useForm, Controller } from 'react-hook-form';
+import { addGame, updateGame } from "api";
+import { useForm, Controller } from "react-hook-form";
 
 import {
   gamesCRUDPending,
   gamesCRUDError,
   gamesCRUDMessage,
   gamesCRUDType
-} from 'reducers/gameReducer';
+} from "reducers/gameReducer";
+
+import "./GameForm.scss";
 
 export const GameForm = ({
   BEM_BASE,
@@ -34,35 +37,26 @@ export const GameForm = ({
 
   const dispatch = useDispatch();
   const [showMessageType, setShowMessageType] = useState(null);
-  let disabled = showMessageType === 'pending';
-  let validType = type === 'ADD' || type === 'UPDATE' || type === 'DELETE';
+  let disabled = showMessageType === "pending";
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    errors,
-    formState,
-    control,
-    setValue,
-    getValues
-  } = useForm();
+  const { register, handleSubmit, reset, errors, formState, control, setValue, getValues } = useForm();
 
   /* DISPLAYS CURRENT API REQUEST STATUS & RESETS FORM WHEN SUCCESSFUL */
   useEffect(() => {
+    const validType = type === "ADD" || type === "UPDATE" || type === "DELETE";
     if (!pending && message && showMessage) {
       // Success
-      setShowMessageType('success');
+      setShowMessageType("success");
       hideMessage();
       setSelectedGame(null);
       resetForm();
     } else if (!pending && error && showMessage && validType) {
       // Error
-      setShowMessageType('error');
+      setShowMessageType("error");
       hideMessage();
     } else if (pending && validType) {
       // Pending
-      setShowMessageType('pending');
+      setShowMessageType("pending");
     }
     // eslint-disable-next-line
   }, [pending, error, message, type]);
@@ -70,11 +64,11 @@ export const GameForm = ({
   /* UPDATES FIELD VALUES BASED ON GAME PROP CHANGES */
   useEffect(() => {
     if (selectedGame) {
-      setValue('name', selectedGame.name);
-      setValue('platform', selectedGame.platform);
-      setValue('imageURL', selectedGame.imageURL);
-      setValue('developer', selectedGame.developer);
-      setValue('releaseDate', selectedGame.releaseDate);
+      setValue("name", selectedGame.name);
+      setValue("platform", selectedGame.platform);
+      setValue("imageURL", selectedGame.imageURL);
+      setValue("developer", selectedGame.developer);
+      setValue("releaseDate", selectedGame.releaseDate);
     } else if (!selectedGame) {
       resetForm();
     }
@@ -88,6 +82,17 @@ export const GameForm = ({
     return data;
   };
 
+  /* ADDS GAME ON SUBMIT */
+  const saveNewGame = (data, format) => {
+    let submitData = data;
+
+    if (format) {
+      setShowMessage(true);
+      submitData = formatData(data);
+    }
+    dispatch(addGame(submitData));
+  };
+
   /* UPDATES OR ADDS GAME ON SUBMIT DEPENDING ON GAME PROP */
   const onSubmit = data => {
     if (data) {
@@ -96,7 +101,7 @@ export const GameForm = ({
       if (selectedGame) {
         dispatch(updateGame(selectedGame._id, submitData));
       } else {
-        dispatch(addGame(submitData));
+        saveNewGame(submitData, false);
       }
     }
   };
@@ -111,47 +116,14 @@ export const GameForm = ({
     }
   };
 
-  /* RENDERS MESSAGES BASED ON CURRENT MESSAGE TYPE */
-  const renderMessages = () => {
-    let errorHeader,
-      errorName,
-      errorMsg = '';
-    if (error && error.error) {
-      errorHeader = error.message;
-      errorName = error.error.name;
-      errorMsg = error.error.message;
-    }
+  /* RETURNS ALL THE FIELDS IN THE FORM */
+  const formFields = () => {
     return (
-      <div className='game-form__messages'>
-        {showMessageType === 'pending' && (
-          <Fragment>
-            <CircularProgress size={100} />
-            <h2>
-              {type === 'ADD' && 'Adding Game'}
-              {type === 'UPDATE' && 'Updating Game'}
-              {type === 'DELETE' && 'Deleting Game'}
-            </h2>
-          </Fragment>
-        )}
-        {showMessageType === 'error' && (
-          <Fragment>
-            <h2>{errorHeader}</h2>
-            <h4>{errorName}</h4>
-            <h5>{errorMsg}</h5>
-          </Fragment>
-        )}
-        {showMessageType === 'success' && <h2>{message}</h2>}
-      </div>
-    );
-  };
-
-  return (
-    <div className={`${BEM_BASE}__form`}>
-      <form autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
+      <Fragment>
         <label>Name</label>
         <TextField
-          name='name'
-          autoComplete='off'
+          name="name"
+          autoComplete="off"
           inputRef={register({ required: true, maxLength: 80 })}
           disabled={disabled}
         />
@@ -159,8 +131,8 @@ export const GameForm = ({
 
         <label>Platform</label>
         <MultiSelect
-          name={'platform'}
-          options={['PC', 'Playstation', 'Xbox']}
+          name={"platform"}
+          options={["PC", "Playstation", "Xbox"]}
           disabled={disabled}
           Controller={Controller}
           control={control}
@@ -168,22 +140,95 @@ export const GameForm = ({
         {errors.platform && <p>At least one Platform is required</p>}
 
         <label>Image URL</label>
-        <TextField name='imageURL' inputRef={register} disabled={disabled} />
+        <TextField name="imageURL" inputRef={register} disabled={disabled} />
 
         <label>Developer</label>
-        <TextField name='developer' inputRef={register} disabled={disabled} />
+        <TextField name="developer" inputRef={register} disabled={disabled} />
 
         <label>Release Date</label>
         <Controller
           as={<Datepicker disabled={disabled} />}
-          name={'releaseDate'}
+          name={"releaseDate"}
           control={control}
           defaultValue={new moment()}
         />
+      </Fragment>
+    );
+  };
 
-        <input type='submit' disabled={disabled} />
+  /* SAVE AS NEW AND UPDATE BUTTONS - SAVE BUTTON CHANGES TO UPDATE WHEN GAME SELECTED */
+  const formButtons = () => {
+    return (
+      <div className="form__buttons">
+        <Button
+          className="save-button"
+          color="primary"
+          variant="outlined"
+          size="medium"
+          type="submit"
+          disabled={disabled}
+        >
+          {selectedGame && "Update"}
+          {!selectedGame && "Save"}
+        </Button>
+
+        {selectedGame && (
+          <Button
+            className="new-button"
+            color="secondary"
+            variant="outlined"
+            size="medium"
+            disabled={disabled}
+            onClick={() => saveNewGame(getValues(), true)}
+          >
+            Save As New
+          </Button>
+        )}
+      </div>
+    );
+  };
+
+  /* RENDERS MESSAGES BASED ON CURRENT MESSAGE TYPE */
+  const renderMessage = () => {
+    let errorHeader,
+      errorName,
+      errorMsg = "";
+    if (error && error.error) {
+      errorHeader = error.message;
+      errorName = error.error.name;
+      errorMsg = error.error.message;
+    }
+    return (
+      <div className="game-form__messages">
+        {showMessageType === "pending" && (
+          <Fragment>
+            <CircularProgress size={100} />
+            <h2>
+              {type === "ADD" && "Adding Game"}
+              {type === "UPDATE" && "Updating Game"}
+              {type === "DELETE" && "Deleting Game"}
+            </h2>
+          </Fragment>
+        )}
+        {showMessageType === "error" && (
+          <Fragment>
+            <h2>{errorHeader}</h2>
+            <h4>{errorName}</h4>
+            <h5>{errorMsg}</h5>
+          </Fragment>
+        )}
+        {showMessageType === "success" && <h2>{message}</h2>}
+      </div>
+    );
+  };
+
+  return (
+    <div className={`${BEM_BASE}__form`}>
+      <form autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
+        {formFields()}
+        {formButtons()}
       </form>
-      {showMessage && renderMessages()}
+      {showMessage && renderMessage()}
     </div>
   );
 };
