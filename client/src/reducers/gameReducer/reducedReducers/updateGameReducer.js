@@ -2,7 +2,7 @@ import {
   UPDATE_GAME_PENDING,
   UPDATE_GAME_SUCCESS,
   UPDATE_GAME_ERROR
-} from '../../actions';
+} from "actions";
 
 export const updateGameReducer = (state, action) => {
   switch (action.type) {
@@ -10,24 +10,17 @@ export const updateGameReducer = (state, action) => {
       return {
         ...state,
         CRUD: {
-          type: 'UPDATE',
+          type: "UPDATE",
           pending: true
         }
       };
     case UPDATE_GAME_SUCCESS:
-      return {
-        ...state,
-        CRUD: {
-          type: null,
-          pending: false,
-          message: `${action.payload.name} Successfully Updated`
-        }
-      };
+      return updateGameToStore(state, action);
     case UPDATE_GAME_ERROR:
       return {
         ...state,
         CRUD: {
-          type: 'UPDATE',
+          type: "UPDATE",
           pending: false,
           error: action.error
         }
@@ -50,6 +43,11 @@ export const updateGameToStore = (state, action) => {
 
   return {
     ...state,
-    data: updatedData !== state.data ? updatedData : [...state.data]
+    data: updatedData !== state.data ? updatedData : [...state.data],
+    CRUD: {
+      type: null,
+      pending: false,
+      message: `${action.payload.name} Successfully Updated`
+    }
   };
 };

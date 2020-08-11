@@ -1,19 +1,14 @@
 import {
   FETCH_TRACKS_PENDING,
   FETCH_TRACKS_SUCCESS,
-  FETCH_TRACKS_ERROR,
-  ADD_TRACK_SUCCESS,
-  UPDATE_TRACK_SUCCESS,
-  DELETE_TRACK_SUCCESS
-} from '../actions';
+  FETCH_TRACKS_ERROR
+} from 'actions';
 
 import {
   addTrackReducer,
   updateTrackReducer,
-  deleteTrackReducer,
-  updateTrackToStore,
-  deleteTrackFromStore
-} from './trackReducers';
+  deleteTrackReducer
+} from './reducedReducers';
 
 import reduceReducers from 'reduce-reducers';
 
@@ -46,15 +41,6 @@ let fetchTrackReducer = function(state, action) {
           pending: false
         }
       };
-    case ADD_TRACK_SUCCESS:
-      return {
-        ...state,
-        data: [...state.data, action.payload]
-      };
-    case UPDATE_TRACK_SUCCESS:
-      return updateTrackToStore(state, action);
-    case DELETE_TRACK_SUCCESS:
-      return deleteTrackFromStore(state, action);
     case FETCH_TRACKS_ERROR:
       return {
         ...state,
@@ -69,7 +55,7 @@ let fetchTrackReducer = function(state, action) {
   }
 };
 
-let trackReducer = reduceReducers(
+export const trackReducer = reduceReducers(
   initialState,
   fetchTrackReducer,
   addTrackReducer,

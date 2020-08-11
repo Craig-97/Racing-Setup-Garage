@@ -1,19 +1,14 @@
 import {
     FETCH_DRIVERS_PENDING,
     FETCH_DRIVERS_SUCCESS,
-    FETCH_DRIVERS_ERROR,
-    ADD_DRIVER_SUCCESS,
-    UPDATE_DRIVER_SUCCESS,
-    DELETE_DRIVER_SUCCESS
-  } from '../actions';
+    FETCH_DRIVERS_ERROR
+  } from 'actions';
   
   import {
     addDriverReducer,
     updateDriverReducer,
-    deleteDriverReducer,
-    updateDriverToStore,
-    deleteDriverFromStore
-  } from './driverReducers';
+    deleteDriverReducer
+  } from './reducedReducers';
   
   import reduceReducers from 'reduce-reducers';
   
@@ -46,15 +41,6 @@ import {
             pending: false
           }
         };
-      case ADD_DRIVER_SUCCESS:
-        return {
-          ...state,
-          data: [...state.data, action.payload]
-        };
-      case UPDATE_DRIVER_SUCCESS:
-        return updateDriverToStore(state, action);
-      case DELETE_DRIVER_SUCCESS:
-        return deleteDriverFromStore(state, action);
       case FETCH_DRIVERS_ERROR:
         return {
           ...state,
@@ -69,7 +55,7 @@ import {
     }
   };
   
-  let driverReducer = reduceReducers(
+  export const driverReducer = reduceReducers(
     initialState,
     fetchDriverReducer,
     addDriverReducer,
@@ -82,6 +68,4 @@ import {
   export const driversCRUDError = state => state.drivers.CRUD.error;
   export const driversCRUDMessage = state => state.drivers.CRUD.message;
   export const driversCRUDType = state => state.drivers.CRUD.type;
-  
-  export default driverReducer;
   

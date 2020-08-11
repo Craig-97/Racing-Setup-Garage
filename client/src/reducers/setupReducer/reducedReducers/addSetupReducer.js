@@ -1,12 +1,12 @@
 import {
-    ADD_CAR_PENDING,
-    ADD_CAR_SUCCESS,
-    ADD_CAR_ERROR
-  } from '../../actions';
+    ADD_SETUP_PENDING,
+    ADD_SETUP_SUCCESS,
+    ADD_SETUP_ERROR
+  } from 'actions';
   
-  export const addCarReducer = (state, action) => {
+  export const addSetupReducer = (state, action) => {
     switch (action.type) {
-      case ADD_CAR_PENDING:
+      case ADD_SETUP_PENDING:
         return {
           ...state,
           CRUD: {
@@ -14,16 +14,17 @@ import {
             pending: true
           }
         };
-      case ADD_CAR_SUCCESS:
+      case ADD_SETUP_SUCCESS:
       return {
           ...state,
+          data: [...state.data, action.payload],
           CRUD: {
             type: null,
             pending: false,
             message: `${action.payload.name} Successfully Added`
           }
       };
-      case ADD_CAR_ERROR:
+      case ADD_SETUP_ERROR:
         return {
           ...state,
           CRUD: {

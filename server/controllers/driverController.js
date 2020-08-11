@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-const Driver = require('../models/driverModel');
+const Driver = require("../models/driverModel");
 
 exports.createDriver = (req, res) => {
   const body = req.body;
@@ -8,7 +8,7 @@ exports.createDriver = (req, res) => {
   if (!body) {
     return res.status(400).json({
       success: false,
-      error: 'You must provide a driver'
+      error: "You must provide a driver"
     });
   }
 
@@ -23,14 +23,14 @@ exports.createDriver = (req, res) => {
     .then(() => {
       return res.status(201).json({
         success: true,
-        message: 'Driver created!',
+        message: "Driver created!",
         driver
       });
     })
     .catch(error => {
       return res.status(400).json({
         error,
-        message: 'Driver not created!'
+        message: "Driver not created!"
       });
     });
 };
@@ -41,7 +41,7 @@ exports.updateDriver = async (req, res) => {
   if (!body) {
     return res.status(400).json({
       success: false,
-      error: 'You must provide a body to update'
+      error: "You must provide a body to update"
     });
   }
 
@@ -49,10 +49,10 @@ exports.updateDriver = async (req, res) => {
     if (err) {
       return res.status(404).json({
         err,
-        message: 'Driver not found!'
+        message: "Driver not found!"
       });
     }
-    driver = Object.assign(driver, body)
+    driver = Object.assign(driver, body);
     driver.__v = driver.__v + 1;
 
     driver
@@ -60,33 +60,34 @@ exports.updateDriver = async (req, res) => {
       .then(() => {
         return res.status(200).json({
           success: true,
-          message: 'Driver updated!',
+          message: "Driver updated!",
           driver
         });
       })
       .catch(error => {
         return res.status(404).json({
           error,
-          message: 'Driver not updated!'
+          message: "Driver not updated!"
         });
       });
   });
 };
 
 exports.deleteDriver = async (req, res) => {
-  await Driver.findOneAndDelete({ _id: req.params.id }, (err, driver) => {
-    if (err) {
-      return res.status(400).json({ success: false, error: err });
-    }
+  await Driver.findOneAndDelete({ _id: req.params.id })
+    .exec((err, driver) => {
+      if (err) {
+        return res.status(400).json({ success: false, error: err });
+      }
 
-    if (!driver) {
-      return res
-        .status(404)
-        .json({ success: false, error: `Driver not found` });
-    }
+      if (!driver) {
+        return res
+          .status(404)
+          .json({ success: false, error: `Driver not found` });
+      }
 
-    return res.status(200).json({ success: true, driver: driver });
-  }).catch(err => console.log(err));
+      return res.status(200).json({ success: true, driver: driver });
+    })
 };
 
 exports.getDriverById = async (req, res) => {

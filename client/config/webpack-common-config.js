@@ -22,8 +22,11 @@ module.exports = {
     // Aliases help with shortening relative paths
     // 'Components/button' === '../../../components/button'
     alias: {
-      Components: path.resolve(paths.appSrc, "components"),
-      Utils: path.resolve(paths.appSrc, "utils")
+      components: path.resolve(paths.appSrc, "components"),
+      actions: path.resolve(paths.appSrc, "actions"),
+      reducers: path.resolve(paths.appSrc, "reducers"),
+      api: path.resolve(paths.appSrc, "api"),
+      utils: path.resolve(paths.appSrc, "utils")
     }
   },
   module: {

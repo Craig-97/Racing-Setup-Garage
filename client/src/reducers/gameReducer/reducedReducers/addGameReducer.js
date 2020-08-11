@@ -1,12 +1,12 @@
 import {
-    ADD_TRACK_PENDING,
-    ADD_TRACK_SUCCESS,
-    ADD_TRACK_ERROR
-  } from '../../actions';
+    ADD_GAME_PENDING,
+    ADD_GAME_SUCCESS,
+    ADD_GAME_ERROR
+  } from 'actions';
   
-  export const addTrackReducer = (state, action) => {
+  export const addGameReducer = (state, action) => {
     switch (action.type) {
-      case ADD_TRACK_PENDING:
+      case ADD_GAME_PENDING:
         return {
           ...state,
           CRUD: {
@@ -14,16 +14,17 @@ import {
             pending: true
           }
         };
-      case ADD_TRACK_SUCCESS:
+      case ADD_GAME_SUCCESS:
       return {
           ...state,
+          data: [...state.data, action.payload],
           CRUD: {
             type: null,
             pending: false,
             message: `${action.payload.name} Successfully Added`
           }
       };
-      case ADD_TRACK_ERROR:
+      case ADD_GAME_ERROR:
         return {
           ...state,
           CRUD: {

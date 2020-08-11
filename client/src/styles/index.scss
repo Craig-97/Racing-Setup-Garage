@@ -70,35 +70,7 @@ code {
       font-weight: 700;
     }
 
-    button[type='submit'],
-    input[type='submit'] {
-      background: #ec5990;
-      color: white;
-      text-transform: uppercase;
-      border: none;
-      width: 8rem;
-      margin: 1rem auto;
-      padding: 1rem;
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 2px;
-      border-radius: 4px;
-      cursor: pointer;
-    }
 
-    button[type='submit']:hover,
-    input[type='submit']:hover {
-      background: #bf1650;
-    }
-
-    button[type='submit']:active,
-    input[type='button']:active,
-    input[type='submit']:active {
-      transition: 0.3s all;
-      transform: translateY(3px);
-      border: 1px solid transparent;
-      opacity: 0.8;
-    }
 
     input:disabled {
       opacity: 0.4;

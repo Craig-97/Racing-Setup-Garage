@@ -1,0 +1,15 @@
+.Addpage__form {
+
+  .form__buttons {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0 0;
+
+    Button {
+        width: 12rem;
+        margin: 0 1rem;
+        color: white;
+        cursor: pointer;
+    }
+  }
+}

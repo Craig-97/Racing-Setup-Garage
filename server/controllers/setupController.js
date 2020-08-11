@@ -74,7 +74,7 @@ exports.updateSetup = async (req, res) => {
 };
 
 exports.deleteSetup = async (req, res) => {
-  await Setup.findOneAndDelete({ _id: req.params.id }, (err, setup) => {
+  await Setup.findOneAndDelete({ _id: req.params.id }).exec((err, setup) => {
     if (err) {
       return res.status(400).json({ success: false, error: err });
     }
@@ -84,7 +84,7 @@ exports.deleteSetup = async (req, res) => {
     }
 
     return res.status(200).json({ success: true, setup: setup });
-  }).catch(err => console.log(err));
+  })
 };
 
 exports.getSetupById = async (req, res) => {
