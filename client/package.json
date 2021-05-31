@@ -11,7 +11,8 @@
     "start:prod": "yarn build; serve build"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0",
+    "@babel/core": "^7.14.3",
+    "@babel/node": "^7.14.2",
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
@@ -23,8 +24,8 @@
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^2.0.0",
     "html-webpack-plugin": "^3.2.0",
-    "node-sass": "^4.13.0",
     "mini-css-extract-plugin": "^0.9.0",
+    "node-sass": "^4.13.0",
     "path": "^0.12.7",
     "react-hot-loader": "^4.3.6",
     "sass-loader": "^7.3.1",
