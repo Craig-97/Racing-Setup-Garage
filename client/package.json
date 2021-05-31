@@ -11,7 +11,8 @@
     "start:prod": "yarn build; serve build"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0",
+    "@babel/core": "^7.14.3",
+    "@babel/node": "^7.14.2",
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",

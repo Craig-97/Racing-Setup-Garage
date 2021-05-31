@@ -15,7 +15,7 @@ import {
   gamesCRUDPending,
   gamesCRUDError,
   gamesCRUDMessage,
-  gamesCRUDType
+  gamesCRUDType,
 } from "reducers/gameReducer";
 
 import "./GameForm.scss";
@@ -26,20 +26,29 @@ export const GameForm = ({
   setSelectedGame,
   showMessage,
   hideMessage,
-  setShowMessage
+  setShowMessage,
 }) => {
-  const { pending, error, message, type } = useSelector(state => ({
+  const { pending, error, message, type } = useSelector((state) => ({
     pending: gamesCRUDPending(state),
     error: gamesCRUDError(state),
     message: gamesCRUDMessage(state),
-    type: gamesCRUDType(state)
+    type: gamesCRUDType(state),
   }));
 
   const dispatch = useDispatch();
   const [showMessageType, setShowMessageType] = useState(null);
   let disabled = showMessageType === "pending";
 
-  const { register, handleSubmit, reset, errors, formState, control, setValue, getValues } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    errors,
+    formState,
+    control,
+    setValue,
+    getValues,
+  } = useForm();
 
   /* DISPLAYS CURRENT API REQUEST STATUS & RESETS FORM WHEN SUCCESSFUL */
   useEffect(() => {
@@ -75,7 +84,7 @@ export const GameForm = ({
   }, [selectedGame]);
 
   /* FORMATS GAME DATA BEFORE API REQUEST */
-  const formatData = data => {
+  const formatData = (data) => {
     if (data.releaseDate && data.releaseDate.toDate) {
       data.releaseDate = data.releaseDate.toDate();
     }
@@ -94,7 +103,7 @@ export const GameForm = ({
   };
 
   /* UPDATES OR ADDS GAME ON SUBMIT DEPENDING ON GAME PROP */
-  const onSubmit = data => {
+  const onSubmit = (data) => {
     if (data) {
       const submitData = formatData(data);
       setShowMessage(true);
@@ -104,6 +113,14 @@ export const GameForm = ({
         saveNewGame(submitData, false);
       }
     }
+  };
+
+  /* RESETS THE FORM IF IN EDIT MODE */
+  const onCancel = () => {
+    if (selectedGame) {
+      setSelectedGame(null);
+    }
+    resetForm();
   };
 
   /* RESETS FORM IF FORM SUBMITTED SUCCESSFULLY OR CURRENT GAME BEING EDITED IS DELETED */
@@ -160,6 +177,15 @@ export const GameForm = ({
   const formButtons = () => {
     return (
       <div className="form__buttons">
+        <Button
+          className="cancel-button"
+          variant="outlined"
+          size="medium"
+          disabled={disabled}
+          onClick={() => onCancel()}
+        >
+          Cancel
+        </Button>
         <Button
           className="save-button"
           color="primary"

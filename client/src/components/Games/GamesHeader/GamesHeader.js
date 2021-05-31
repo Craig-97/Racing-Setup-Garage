@@ -1,13 +1,13 @@
-import React from 'react';
+import React from "react";
 
-import { GamesNameSearch, GamesPlatformSelect } from '../index';
+import { GamesNameSearch, GamesPlatformSelect } from "../";
 
-import './GamesHeader.scss';
+import "./GamesHeader.scss";
 
 export const GamesHeader = ({
   BEM_BASE,
   updateFilteredGames,
-  filteredGames
+  filteredGames,
 }) => {
   return (
     <>
