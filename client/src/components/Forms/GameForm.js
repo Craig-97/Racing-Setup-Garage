@@ -1,24 +1,24 @@
-import React, { Fragment, useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { Fragment, useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import moment from "moment";
+import moment from 'moment';
 
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import { Datepicker, MultiSelect } from "../Controls";
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { Datepicker, MultiSelect } from '../Controls';
 
-import { addGame, updateGame } from "api";
-import { useForm, Controller } from "react-hook-form";
+import { addGame, updateGame } from 'api';
+import { useForm, Controller } from 'react-hook-form';
 
 import {
   gamesCRUDPending,
   gamesCRUDError,
   gamesCRUDMessage,
-  gamesCRUDType,
-} from "reducers/gameReducer";
+  gamesCRUDType
+} from 'reducers/gameReducer';
 
-import "./GameForm.scss";
+import './GameForm.scss';
 
 export const GameForm = ({
   BEM_BASE,
@@ -26,65 +26,68 @@ export const GameForm = ({
   setSelectedGame,
   showMessage,
   hideMessage,
-  setShowMessage,
+  setShowMessage
 }) => {
-  const { pending, error, message, type } = useSelector((state) => ({
+  const { pending, error, message, type } = useSelector(state => ({
     pending: gamesCRUDPending(state),
     error: gamesCRUDError(state),
     message: gamesCRUDMessage(state),
-    type: gamesCRUDType(state),
+    type: gamesCRUDType(state)
   }));
 
   const dispatch = useDispatch();
   const [showMessageType, setShowMessageType] = useState(null);
-  let disabled = showMessageType === "pending";
+  let disabled = showMessageType === 'pending';
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    errors,
-    formState,
-    control,
-    setValue,
-    getValues,
-  } = useForm();
+  const { register, handleSubmit, reset, errors, formState, control, setValue, getValues } =
+    useForm();
 
   /* DISPLAYS CURRENT API REQUEST STATUS & RESETS FORM WHEN SUCCESSFUL */
   useEffect(() => {
-    const validType = type === "ADD" || type === "UPDATE" || type === "DELETE";
+    const validType = type === 'ADD' || type === 'UPDATE' || type === 'DELETE';
     if (!pending && message && showMessage) {
       // Success
-      setShowMessageType("success");
+      setShowMessageType('success');
       hideMessage();
       setSelectedGame(null);
       resetForm();
     } else if (!pending && error && showMessage && validType) {
       // Error
-      setShowMessageType("error");
+      setShowMessageType('error');
       hideMessage();
     } else if (pending && validType) {
       // Pending
-      setShowMessageType("pending");
+      setShowMessageType('pending');
     }
     // eslint-disable-next-line
   }, [pending, error, message, type]);
 
+  /* RESETS FORM IF FORM SUBMITTED SUCCESSFULLY OR CURRENT GAME BEING EDITED IS DELETED */
+  const resetForm = () => {
+    const formSubmitted = formState && formState.dirty && formState.isSubmitted;
+    const selectedGameDeleted = getValues && getValues().name;
+
+    if (formSubmitted || selectedGameDeleted) {
+      reset();
+    }
+  };
+
   /* UPDATES FIELD VALUES BASED ON GAME PROP CHANGES */
   useEffect(() => {
     if (selectedGame) {
-      setValue("name", selectedGame.name);
-      setValue("platform", selectedGame.platform);
-      setValue("imageURL", selectedGame.imageURL);
-      setValue("developer", selectedGame.developer);
-      setValue("releaseDate", selectedGame.releaseDate);
+      setValue('name', selectedGame.name);
+      setValue('platform', selectedGame.platform);
+      setValue('imageURL', selectedGame.imageURL);
+      setValue('developer', selectedGame.developer);
+      setValue('releaseDate', selectedGame.releaseDate);
     } else if (!selectedGame) {
       resetForm();
     }
+    // eslint-disable-next-line
   }, [selectedGame]);
 
   /* FORMATS GAME DATA BEFORE API REQUEST */
-  const formatData = (data) => {
+  const formatData = data => {
     if (data.releaseDate && data.releaseDate.toDate) {
       data.releaseDate = data.releaseDate.toDate();
     }
@@ -103,7 +106,7 @@ export const GameForm = ({
   };
 
   /* UPDATES OR ADDS GAME ON SUBMIT DEPENDING ON GAME PROP */
-  const onSubmit = (data) => {
+  const onSubmit = data => {
     if (data) {
       const submitData = formatData(data);
       setShowMessage(true);
@@ -123,24 +126,14 @@ export const GameForm = ({
     resetForm();
   };
 
-  /* RESETS FORM IF FORM SUBMITTED SUCCESSFULLY OR CURRENT GAME BEING EDITED IS DELETED */
-  const resetForm = () => {
-    const formSubmitted = formState && formState.dirty && formState.isSubmitted;
-    const selectedGameDeleted = getValues && getValues().name;
-
-    if (formSubmitted || selectedGameDeleted) {
-      reset();
-    }
-  };
-
   /* RETURNS ALL THE FIELDS IN THE FORM */
   const formFields = () => {
     return (
       <Fragment>
         <label>Name</label>
         <TextField
-          name="name"
-          autoComplete="off"
+          name='name'
+          autoComplete='off'
           inputRef={register({ required: true, maxLength: 80 })}
           disabled={disabled}
         />
@@ -148,8 +141,8 @@ export const GameForm = ({
 
         <label>Platform</label>
         <MultiSelect
-          name={"platform"}
-          options={["PC", "Playstation", "Xbox"]}
+          name={'platform'}
+          options={['PC', 'Playstation', 'Xbox']}
           disabled={disabled}
           Controller={Controller}
           control={control}
@@ -157,15 +150,15 @@ export const GameForm = ({
         {errors.platform && <p>At least one Platform is required</p>}
 
         <label>Image URL</label>
-        <TextField name="imageURL" inputRef={register} disabled={disabled} />
+        <TextField name='imageURL' inputRef={register} disabled={disabled} />
 
         <label>Developer</label>
-        <TextField name="developer" inputRef={register} disabled={disabled} />
+        <TextField name='developer' inputRef={register} disabled={disabled} />
 
         <label>Release Date</label>
         <Controller
           as={<Datepicker disabled={disabled} />}
-          name={"releaseDate"}
+          name={'releaseDate'}
           control={control}
           defaultValue={new moment()}
         />
@@ -176,34 +169,34 @@ export const GameForm = ({
   /* SAVE AS NEW AND UPDATE BUTTONS - SAVE BUTTON CHANGES TO UPDATE WHEN GAME SELECTED */
   const formButtons = () => {
     return (
-      <div className="form__buttons">
+      <div className='form__buttons'>
         <Button
-          className="cancel-button"
-          variant="outlined"
-          size="medium"
+          className='cancel-button'
+          variant='outlined'
+          size='medium'
           disabled={disabled}
           onClick={() => onCancel()}
         >
           Cancel
         </Button>
         <Button
-          className="save-button"
-          color="primary"
-          variant="outlined"
-          size="medium"
-          type="submit"
+          className='save-button'
+          color='primary'
+          variant='outlined'
+          size='medium'
+          type='submit'
           disabled={disabled}
         >
-          {selectedGame && "Update"}
-          {!selectedGame && "Save"}
+          {selectedGame && 'Update'}
+          {!selectedGame && 'Save'}
         </Button>
 
         {selectedGame && (
           <Button
-            className="new-button"
-            color="secondary"
-            variant="outlined"
-            size="medium"
+            className='new-button'
+            color='secondary'
+            variant='outlined'
+            size='medium'
             disabled={disabled}
             onClick={() => saveNewGame(getValues(), true)}
           >
@@ -218,39 +211,39 @@ export const GameForm = ({
   const renderMessage = () => {
     let errorHeader,
       errorName,
-      errorMsg = "";
+      errorMsg = '';
     if (error && error.error) {
       errorHeader = error.message;
       errorName = error.error.name;
       errorMsg = error.error.message;
     }
     return (
-      <div className="game-form__messages">
-        {showMessageType === "pending" && (
+      <div className='game-form__messages'>
+        {showMessageType === 'pending' && (
           <Fragment>
             <CircularProgress size={100} />
             <h2>
-              {type === "ADD" && "Adding Game"}
-              {type === "UPDATE" && "Updating Game"}
-              {type === "DELETE" && "Deleting Game"}
+              {type === 'ADD' && 'Adding Game'}
+              {type === 'UPDATE' && 'Updating Game'}
+              {type === 'DELETE' && 'Deleting Game'}
             </h2>
           </Fragment>
         )}
-        {showMessageType === "error" && (
+        {showMessageType === 'error' && (
           <Fragment>
             <h2>{errorHeader}</h2>
             <h4>{errorName}</h4>
             <h5>{errorMsg}</h5>
           </Fragment>
         )}
-        {showMessageType === "success" && <h2>{message}</h2>}
+        {showMessageType === 'success' && <h2>{message}</h2>}
       </div>
     );
   };
 
   return (
     <div className={`${BEM_BASE}__form`}>
-      <form autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
+      <form autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
         {formFields()}
         {formButtons()}
       </form>

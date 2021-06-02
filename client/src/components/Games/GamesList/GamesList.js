@@ -1,26 +1,26 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchGames } from "api";
-import { getGames, gamesCRUDPending } from "reducers/gameReducer";
-import { resultsFilterer } from "utils";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import { fetchGames } from 'api';
+import { getGames, gamesCRUDPending } from 'reducers/gameReducer';
+import { resultsFilterer } from 'utils';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-import { GameCard, GamesHeader } from "../";
+import { GameCard, GamesHeader } from '../';
 
-import "./GamesList.scss";
+import './GamesList.scss';
 
 export const GamesList = ({ BEM_BASE }) => {
   const dispatch = useDispatch();
   const [filteredGames, setFilteredGames] = useState([]);
   const [filters, setFilters] = useState([
-    { field: "name", value: "" },
-    { field: "platform", value: ["PC", "Playstation", "Xbox"] },
+    { field: 'name', value: '' },
+    { field: 'platform', value: ['PC', 'Playstation', 'Xbox'] }
   ]);
 
-  const { games, isLoading } = useSelector((state) => ({
+  const { games, isLoading } = useSelector(state => ({
     games: getGames(state),
-    isLoading: gamesCRUDPending(state),
+    isLoading: gamesCRUDPending(state)
   }));
 
   /* FETCHES GAMES ON MOUNT */
@@ -38,7 +38,7 @@ export const GamesList = ({ BEM_BASE }) => {
   const updateFilteredGames = (value, field) => {
     let newFilters = [...filters];
 
-    newFilters.forEach((filter) => {
+    newFilters.forEach(filter => {
       if (filter.field === field) {
         filter.value = value;
       }
