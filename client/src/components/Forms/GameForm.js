@@ -39,8 +39,7 @@ export const GameForm = ({
   const [showMessageType, setShowMessageType] = useState(null);
   let disabled = showMessageType === 'pending';
 
-  const { register, handleSubmit, reset, errors, formState, control, setValue, getValues } =
-    useForm();
+  const { register, handleSubmit, reset, formState, control, setValue, getValues } = useForm();
 
   /* DISPLAYS CURRENT API REQUEST STATUS & RESETS FORM WHEN SUCCESSFUL */
   useEffect(() => {
@@ -132,12 +131,12 @@ export const GameForm = ({
       <Fragment>
         <label>Name</label>
         <TextField
-          name='name'
-          autoComplete='off'
-          inputRef={register({ required: true, maxLength: 80 })}
+          name="name"
+          autoComplete="off"
           disabled={disabled}
+          {...register('name', { required: true, maxLength: 80 })}
         />
-        {errors.name && <p>Name is required</p>}
+        {formState.errors.name && <p>Name is required</p>}
 
         <label>Platform</label>
         <MultiSelect
@@ -147,20 +146,20 @@ export const GameForm = ({
           Controller={Controller}
           control={control}
         />
-        {errors.platform && <p>At least one Platform is required</p>}
+        {formState.errors.platform && <p>At least one Platform is required</p>}
 
         <label>Image URL</label>
-        <TextField name='imageURL' inputRef={register} disabled={disabled} />
+        <TextField name="imageURL" {...register('imageURL')} disabled={disabled} />
 
         <label>Developer</label>
-        <TextField name='developer' inputRef={register} disabled={disabled} />
+        <TextField name="developer" {...register('developer')} disabled={disabled} />
 
         <label>Release Date</label>
         <Controller
-          as={<Datepicker disabled={disabled} />}
           name={'releaseDate'}
           control={control}
           defaultValue={new moment()}
+          render={({ field }) => <Datepicker {...field} disabled={disabled} />}
         />
       </Fragment>
     );
@@ -169,37 +168,34 @@ export const GameForm = ({
   /* SAVE AS NEW AND UPDATE BUTTONS - SAVE BUTTON CHANGES TO UPDATE WHEN GAME SELECTED */
   const formButtons = () => {
     return (
-      <div className='form__buttons'>
+      <div className="form__buttons">
         <Button
-          className='cancel-button'
-          variant='outlined'
-          size='medium'
+          className="cancel-button"
+          variant="outlined"
+          size="medium"
           disabled={disabled}
-          onClick={() => onCancel()}
-        >
+          onClick={() => onCancel()}>
           Cancel
         </Button>
         <Button
-          className='save-button'
-          color='primary'
-          variant='outlined'
-          size='medium'
-          type='submit'
-          disabled={disabled}
-        >
+          className="save-button"
+          color="primary"
+          variant="outlined"
+          size="medium"
+          type="submit"
+          disabled={disabled}>
           {selectedGame && 'Update'}
           {!selectedGame && 'Save'}
         </Button>
 
         {selectedGame && (
           <Button
-            className='new-button'
-            color='secondary'
-            variant='outlined'
-            size='medium'
+            className="new-button"
+            color="secondary"
+            variant="outlined"
+            size="medium"
             disabled={disabled}
-            onClick={() => saveNewGame(getValues(), true)}
-          >
+            onClick={() => saveNewGame(getValues(), true)}>
             Save As New
           </Button>
         )}
@@ -218,7 +214,7 @@ export const GameForm = ({
       errorMsg = error.error.message;
     }
     return (
-      <div className='game-form__messages'>
+      <div className="game-form__messages">
         {showMessageType === 'pending' && (
           <Fragment>
             <CircularProgress size={100} />
@@ -243,7 +239,7 @@ export const GameForm = ({
 
   return (
     <div className={`${BEM_BASE}__form`}>
-      <form autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
+      <form autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
         {formFields()}
         {formButtons()}
       </form>
