@@ -2,7 +2,7 @@
 
 ### Homepage
 
-![image](https://user-images.githubusercontent.com/41014229/230735085-297652cc-3be5-410b-bcb1-71a0a75cf347.png)
+![image](https://github.com/Craig-97/Racing-Setup-Garage/assets/41014229/00522eb5-dee6-40f1-9a08-5b5cf9f64bd7)
 
 ### Management Screen
 
